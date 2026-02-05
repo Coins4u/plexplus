@@ -612,7 +612,13 @@ export default function FrHomePage() {
         </div>
       </footer>
 
-      <a href="https://wa.me/14302485823" className="whatsapp-float" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://wa.me/14302485823"
+        className="whatsapp-float"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Plex Plus on WhatsApp"
+      >
         <Icon name="whatsapp" className="icon" />
       </a>
     </>
