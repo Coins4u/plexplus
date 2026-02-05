@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Icon from "../components/Icon";
 import { FormEvent, useState } from "react";
 import { usePlexPlusUI } from "../hooks/usePlexPlusUI";
 
@@ -48,7 +49,8 @@ export default function ContactPage() {
               <img src="/img/logo.png" alt="Plex Plus Logo" />
             </Link>
             <div className="mobile-toggle">
-              <i className="fas fa-bars" />
+              <Icon name="bars" className="icon icon-bars" />
+              <Icon name="times" className="icon icon-times" />
             </div>
             <nav className="nav-links">
               <Link href="/" className="nav-link">
@@ -99,14 +101,7 @@ export default function ContactPage() {
                   border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
-                <i
-                  className="fas fa-bolt"
-                  style={{
-                    color: "var(--primary-color)",
-                    fontSize: "1.5rem",
-                    marginBottom: 15,
-                  }}
-                />
+                <Icon name="bolt" className="icon contact-info-icon" />
                 <h3 style={{ color: "#fff", marginBottom: 10 }}>Fast Response</h3>
                 <p style={{ fontSize: "0.9rem", margin: 0 }}>
                   We aim to respond to all tickets within <strong>1-2 hours</strong>. Please check your spam folder if
@@ -122,14 +117,7 @@ export default function ContactPage() {
                   border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
-                <i
-                  className="fas fa-book-open"
-                  style={{
-                    color: "var(--primary-color)",
-                    fontSize: "1.5rem",
-                    marginBottom: 15,
-                  }}
-                />
+                <Icon name="book-open" className="icon contact-info-icon" />
                 <h3 style={{ color: "#fff", marginBottom: 10 }}>Installation Guides</h3>
                 <p style={{ fontSize: "0.9rem", margin: 0 }}>
                   Need help setting up? Check out our detailed{" "}
@@ -151,14 +139,7 @@ export default function ContactPage() {
                   border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
-                <i
-                  className="fas fa-question-circle"
-                  style={{
-                    color: "var(--primary-color)",
-                    fontSize: "1.5rem",
-                    marginBottom: 15,
-                  }}
-                />
+                <Icon name="question-circle" className="icon contact-info-icon" />
                 <h3 style={{ color: "#fff", marginBottom: 10 }}>FAQ</h3>
                 <p style={{ fontSize: "0.9rem", margin: 0 }}>
                   Find answers to common questions about channels, buffering, and more in our{" "}

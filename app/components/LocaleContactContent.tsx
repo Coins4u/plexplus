@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Icon from "./Icon";
 import { FormEvent, useState } from "react";
 import type { Locale, LocaleLabels } from "../lib/localeLabels";
 
@@ -59,7 +60,7 @@ export function LocaleContactContent({ locale, labels }: LocaleContactContentPro
                 border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              <i className="fas fa-bolt" style={{ color: "var(--primary-color)", fontSize: "1.5rem", marginBottom: 15 }} />
+              <Icon name="bolt" className="icon contact-info-icon" />
               <h3 style={{ color: "#fff", marginBottom: 10 }}>{labels.contact.fastResponse}</h3>
               <p style={{ fontSize: "0.9rem", margin: 0 }}>{labels.contact.fastResponseText}</p>
             </div>
@@ -71,7 +72,7 @@ export function LocaleContactContent({ locale, labels }: LocaleContactContentPro
                 border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              <i className="fas fa-book-open" style={{ color: "var(--primary-color)", fontSize: "1.5rem", marginBottom: 15 }} />
+              <Icon name="book-open" className="icon contact-info-icon" />
               <h3 style={{ color: "#fff", marginBottom: 10 }}>{labels.contact.installationGuides}</h3>
               <p style={{ fontSize: "0.9rem", margin: 0 }}>
                 {labels.contact.installationGuidesIntro}
@@ -89,7 +90,7 @@ export function LocaleContactContent({ locale, labels }: LocaleContactContentPro
                 border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              <i className="fas fa-question-circle" style={{ color: "var(--primary-color)", fontSize: "1.5rem", marginBottom: 15 }} />
+              <Icon name="question-circle" className="icon contact-info-icon" />
               <h3 style={{ color: "#fff", marginBottom: 10 }}>{labels.contact.faq}</h3>
               <p style={{ fontSize: "0.9rem", margin: 0 }}>
                 {labels.contact.faqIntro}

@@ -1,22 +1,35 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { usePlexPlusUI } from "./hooks/usePlexPlusUI";
+import Icon from "./components/Icon";
+import PlexPlusUIClient from "./components/PlexPlusUIClient";
+
+const HERO_IMAGE = "/img/heroimg.png";
+const GRID_SIZES =
+  "(max-width: 900px) 50vw, (max-width: 1200px) 25vw, 280px";
+const POSTER_SIZES =
+  "(max-width: 700px) 50vw, (max-width: 1200px) 25vw, 240px";
+const PAYMENT_SIZES = "(max-width: 768px) 70vw, 320px";
 
 export default function Home() {
-  usePlexPlusUI();
-
   return (
     <>
+      <PlexPlusUIClient />
       <header className="header">
         <div className="container">
           <div className="nav-wrapper">
             <a href="#" className="logo">
-              <img src="/img/logo.png" alt="Plex Plus Logo" />
+              <Image
+                src="/img/logo.png"
+                alt="Plex Plus Logo"
+                width={160}
+                height={40}
+                sizes="160px"
+                priority
+              />
             </a>
             <div className="mobile-toggle">
-              <i className="fas fa-bars" />
+              <Icon name="bars" className="icon icon-bars" />
+              <Icon name="times" className="icon icon-times" />
             </div>
             <nav className="nav-links">
               <a href="#hero" className="nav-link">
@@ -44,6 +57,15 @@ export default function Home() {
 
       <main role="main">
         <section id="hero" className="hero">
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="hero-bg-image"
+          />
           <div className="container hero-content">
             <h1 className="hero-title">
               Experience Premium <span>IPTV Service</span> | The Best IPTV
@@ -61,13 +83,13 @@ export default function Home() {
             </p>
             <ul className="hero-features">
               <li>
-                <i className="fas fa-check-circle" /> 4K/UHD IPTV Quality
+                <Icon name="check-circle" className="icon" /> 4K/UHD IPTV Quality
               </li>
               <li>
-                <i className="fas fa-check-circle" /> Premium IPTV
+                <Icon name="check-circle" className="icon" /> Premium IPTV
               </li>
               <li>
-                <i className="fas fa-check-circle" /> Money-Back Guarantee
+                <Icon name="check-circle" className="icon" /> Money-Back Guarantee
               </li>
             </ul>
             <div className="hero-buttons">
@@ -106,49 +128,89 @@ export default function Home() {
             </p>
             <div className="bento-grid">
               <div className="grid-item">
-                <img src="/img/sports/football.png" alt="football" />
+                <Image
+                  src="/img/sports/football.png"
+                  alt="football"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">Football</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/mma.png" alt="mma" />
+                <Image
+                  src="/img/sports/mma.png"
+                  alt="mma"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title"> MMA</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/basketball.png" alt="basketball" />
+                <Image
+                  src="/img/sports/basketball.png"
+                  alt="basketball"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">Basketball</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/motosports.png" alt="motosports" />
+                <Image
+                  src="/img/sports/motosports.png"
+                  alt="motosports"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">Motosports</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/tennis.png" alt="tennis" />
+                <Image
+                  src="/img/sports/tennis.png"
+                  alt="tennis"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">Tennis</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/equestrian.png" alt="equestrian" />
+                <Image
+                  src="/img/sports/equestrian.png"
+                  alt="equestrian"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">Equestrian</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/rugby.png" alt="rugby" />
+                <Image
+                  src="/img/sports/rugby.png"
+                  alt="rugby"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">Rugby</h3>
                 </div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/omnisports-ar.png" alt="all sports" />
+                <Image
+                  src="/img/sports/omnisports-ar.png"
+                  alt="all sports"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content">
                   <h3 className="grid-item-title">All Sports</h3>
                 </div>
@@ -200,12 +262,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/les-4-fantastiques-premiers-pas-film-mcu-banniere.webp"
-                              alt="Latest 4K IPTV Streaming Movie Releases"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/les-4-fantastiques-premiers-pas-film-mcu-banniere.webp"
+                                alt="Latest 4K IPTV Streaming Movie Releases"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -227,12 +292,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/maxresdefault.webp"
-                              alt="Action Movies on Smart IPTV"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/maxresdefault.webp"
+                                alt="Action Movies on Smart IPTV"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -254,12 +322,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/sinners.webp"
-                              alt="Top Rated Films via IPTV VOD"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/sinners.webp"
+                                alt="Top Rated Films via IPTV VOD"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -281,12 +352,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/fe5c2ef3-1c8a-4c9e-b722-b036f018856c.webp"
-                              alt="Popular Movies 2025 on IPTV Server"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/fe5c2ef3-1c8a-4c9e-b722-b036f018856c.webp"
+                                alt="Popular Movies 2025 on IPTV Server"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -308,12 +382,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/eszlm4m030kf1.webp"
-                              alt="Family Kids Movies IPTV Subscription"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/eszlm4m030kf1.webp"
+                                alt="Family Kids Movies IPTV Subscription"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -335,12 +412,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/Screenshot 2025-12-20 at 12.37.26.webp"
-                              alt="Thriller Movies Best IPTV Provider"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.37.26.webp"
+                                alt="Thriller Movies Best IPTV Provider"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -362,12 +442,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/Screenshot 2025-12-20 at 12.38.08.webp"
-                              alt="Exclusive Premieres on M3U IPTV Playlist"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.38.08.webp"
+                                alt="Exclusive Premieres on M3U IPTV Playlist"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -389,12 +472,15 @@ export default function Home() {
                             className="poster_684939"
                             data-testid="poster"
                           >
-                            <img
-                              loading="lazy"
-                              src="/img/films/Screenshot 2025-12-20 at 12.39.35.webp"
-                              alt="Cinema Streaming Best IPTV Player for Firestick"
-                              className="ImageType_149741 cover poster__cover_684939"
-                            />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.39.35.webp"
+                                alt="Cinema Streaming Best IPTV Player for Firestick"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -412,7 +498,7 @@ export default function Home() {
             <div className="howto-grid">
               <div className="howto-card">
                 <div className="howto-number">
-                  <i className="fas fa-clipboard-check" />
+                  <Icon name="clipboard-check" className="icon" />
                 </div>
                 <h3 className="howto-title">1. Select Your IPTV Plan</h3>
                 <p className="howto-desc">
@@ -424,7 +510,7 @@ export default function Home() {
               </div>
               <div className="howto-card">
                 <div className="howto-number">
-                  <i className="fas fa-credit-card" />
+                  <Icon name="credit-card" className="icon" />
                 </div>
                 <h3 className="howto-title">2. Secure Checkout</h3>
                 <p className="howto-desc">
@@ -435,7 +521,7 @@ export default function Home() {
               </div>
               <div className="howto-card">
                 <div className="howto-number">
-                  <i className="fas fa-tv" />
+                  <Icon name="tv" className="icon" />
                 </div>
                 <h3 className="howto-title">3. Start IPTV Streaming</h3>
                 <p className="howto-desc">
@@ -503,36 +589,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>20K+ HD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>120K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Reliable Performance</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>All Devices Supported</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>24/7 Live chat support</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-outline">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -544,36 +633,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>20K+ HD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>120K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Reliable Performance</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>All Devices Supported</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>24/7 Live chat support</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-primary">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -584,36 +676,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>20K+ HD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>120K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Reliable Performance</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>All Devices Supported</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>24/7 Live chat support</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-outline">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -624,36 +719,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>20K+ HD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>120K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Reliable Performance</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>All Devices Supported</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>24/7 Live chat support</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-outline">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -667,36 +765,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Premium Anti-Buffer Server</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>47K+ 4K/UHD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>180K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Sports Event Priority</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Global Coverage (US/UK/EU)</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-outline">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -708,36 +809,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Premium Anti-Buffer Server</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>47K+ 4K/UHD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>180K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Sports Event Priority</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Global Coverage (US/UK/EU)</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-primary">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -748,36 +852,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Premium Anti-Buffer Server</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>47K+ 4K/UHD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>180K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Sports Event Priority</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Global Coverage (US/UK/EU)</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-outline">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -788,36 +895,39 @@ export default function Home() {
                 </div>
                 <ul className="pricing-features">
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Premium Anti-Buffer Server</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>47K+ 4K/UHD Channels</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>180K+ Movies &amp; Series</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Sports Event Priority</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Global Coverage (US/UK/EU)</strong>
                   </li>
                   <li>
-                    <i className="fas fa-check" />{" "}
+                    <Icon name="check" className="icon" />{" "}
                     <strong>Adult Content (Optional)</strong>
                   </li>
                 </ul>
                 <a href="#" className="btn btn-outline">
                   Order Now
                 </a>
-                <img
+                <Image
                   src="/img/payments.png"
                   alt="Accepted Payment Methods"
+                  width={500}
+                  height={60}
+                  sizes={PAYMENT_SIZES}
                   className="payment-methods-img"
                 />
               </div>
@@ -848,7 +958,7 @@ export default function Home() {
             <div className="features-grid">
               <div className="feature-item">
                 <div className="feature-icon">
-                  <i className="fas fa-tv" />
+                  <Icon name="tv" className="icon" />
                 </div>
                 <div className="feature-content">
                   <h3>47,000+ Live Channels</h3>
@@ -862,7 +972,7 @@ export default function Home() {
               </div>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <i className="fas fa-film" />
+                  <Icon name="film" className="icon" />
                 </div>
                 <div className="feature-content">
                   <h3>Premium VOD Content</h3>
@@ -876,7 +986,7 @@ export default function Home() {
               </div>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <i className="fas fa-bolt" />
+                  <Icon name="bolt" className="icon" />
                 </div>
                 <div className="feature-content">
                   <h3>Reliable IPTV Server</h3>
@@ -890,7 +1000,7 @@ export default function Home() {
               </div>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <i className="fas fa-headset" />
+                  <Icon name="headset" className="icon" />
                 </div>
                 <div className="feature-content">
                   <h3>24/7 Support</h3>
@@ -903,7 +1013,7 @@ export default function Home() {
               </div>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <i className="fas fa-cogs" />
+                  <Icon name="cogs" className="icon" />
                 </div>
                 <div className="feature-content">
                   <h3>Firestick &amp; App Support</h3>
@@ -917,7 +1027,7 @@ export default function Home() {
               </div>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <i className="fas fa-shield-alt" />
+                  <Icon name="shield-alt" className="icon" />
                 </div>
                 <div className="feature-content">
                   <h3>Secure &amp; Private</h3>
@@ -951,27 +1061,27 @@ export default function Home() {
             </p>
             <div className="devices-grid">
               <div className="device-card">
-                <i className="fab fa-amazon" />
+                <Icon name="amazon" className="icon" />
                 <h3>Firestick / Fire TV</h3>
               </div>
               <div className="device-card">
-                <i className="fas fa-tv" />
+                <Icon name="tv" className="icon" />
                 <h3>Smart TV (LG/Samsung)</h3>
               </div>
               <div className="device-card">
-                <i className="fab fa-android" />
+                <Icon name="android" className="icon" />
                 <h3>Android Devices</h3>
               </div>
               <div className="device-card">
-                <i className="fab fa-apple" />
+                <Icon name="apple" className="icon" />
                 <h3>iOS / Apple TV</h3>
               </div>
               <div className="device-card">
-                <i className="fas fa-laptop" />
+                <Icon name="laptop" className="icon" />
                 <h3>PC / Windows / Mac</h3>
               </div>
               <div className="device-card">
-                <i className="fas fa-box" />
+                <Icon name="box" className="icon" />
                 <h3>MAG / Enigma2</h3>
               </div>
             </div>
@@ -984,11 +1094,11 @@ export default function Home() {
             <div className="reviews-grid">
               <div className="review-card">
                 <div className="stars">
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
                 </div>
                 <p className="review-text">
                   &quot;The <strong>best IPTV service</strong> 2025 hands down.
@@ -1000,11 +1110,11 @@ export default function Home() {
               </div>
               <div className="review-card">
                 <div className="stars">
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star-half-alt" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star-half" className="icon" />
                 </div>
                 <p className="review-text">
                   &quot;Great selection of movies and series. My family loves
@@ -1015,11 +1125,11 @@ export default function Home() {
               </div>
               <div className="review-card">
                 <div className="stars">
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
+                  <Icon name="star" className="icon" />
                 </div>
                 <p className="review-text">
                   &quot;Support was very helpful setting up my device.
@@ -1041,7 +1151,7 @@ export default function Home() {
               <details className="faq-item">
                 <summary className="faq-question">
                   What do I need for IPTV?{" "}
-                  <i className="fas fa-chevron-down" />
+                  <Icon name="chevron-down" className="icon" />
                 </summary>
                 <div className="faq-answer">
                   <p>
@@ -1056,7 +1166,7 @@ export default function Home() {
               <details className="faq-item">
                 <summary className="faq-question">
                   Do I need a VPN for IPTV?{" "}
-                  <i className="fas fa-chevron-down" />
+                  <Icon name="chevron-down" className="icon" />
                 </summary>
                 <div className="faq-answer">
                   <p>
@@ -1070,7 +1180,7 @@ export default function Home() {
               <details className="faq-item">
                 <summary className="faq-question">
                   Can I watch IPTV on my phone?{" "}
-                  <i className="fas fa-chevron-down" />
+                  <Icon name="chevron-down" className="icon" />
                 </summary>
                 <div className="faq-answer">
                   <p>
@@ -1084,7 +1194,7 @@ export default function Home() {
               <details className="faq-item">
                 <summary className="faq-question">
                   Do you need a good Wi-Fi connection for IPTV?{" "}
-                  <i className="fas fa-chevron-down" />
+                  <Icon name="chevron-down" className="icon" />
                 </summary>
                 <div className="faq-answer">
                   <p>
@@ -1097,7 +1207,7 @@ export default function Home() {
               <details className="faq-item">
                 <summary className="faq-question">
                   Can IPTV work on a regular television?{" "}
-                  <i className="fas fa-chevron-down" />
+                  <Icon name="chevron-down" className="icon" />
                 </summary>
                 <div className="faq-answer">
                   <p>
@@ -1119,7 +1229,13 @@ export default function Home() {
           <div className="footer-content">
             <div className="footer-brand">
               <a href="#" className="footer-logo">
-                <img src="/img/logo.png" alt="Plex Plus Logo" />
+                <Image
+                  src="/img/logo.png"
+                  alt="Plex Plus Logo"
+                  width={160}
+                  height={50}
+                  sizes="160px"
+                />
               </a>
               <p className="footer-desc">
                 The most reliable <strong>IPTV service provider</strong> for{" "}
@@ -1170,7 +1286,7 @@ export default function Home() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <i className="fab fa-whatsapp" />
+        <Icon name="whatsapp" className="icon" />
       </a>
     </>
   );

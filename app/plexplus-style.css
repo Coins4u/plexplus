@@ -17,7 +17,7 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-outfit, "Outfit"), sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-white);
     line-height: 1.6;
@@ -37,6 +37,13 @@ ul {
 img {
     max-width: 100%;
     display: block;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    flex: 0 0 auto;
 }
 
 .container {
@@ -123,6 +130,7 @@ h2.section-title {
 .logo img {
     max-height: 40px;
     width: auto;
+    height: auto;
 }
 
 .nav-links {
@@ -146,14 +154,28 @@ h2.section-title {
     cursor: pointer;
 }
 
+.mobile-toggle .icon-times {
+    display: none;
+}
+
+.mobile-toggle.is-open .icon-bars {
+    display: none;
+}
+
+.mobile-toggle.is-open .icon-times {
+    display: inline-block;
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.64) 50%, rgba(0, 0, 0, 0) 100%), url('/img/hero_sports_center_clean_1769521080817.png') center top/cover no-repeat;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.64) 50%, rgba(0, 0, 0, 0) 100%);
     display: flex;
     align-items: center;
     text-align: center;
     position: relative;
+    overflow: hidden;
+    isolation: isolate;
 }
 
 /* Note: Assuming hero-bg.jpg exists or will be replaced. For now using a dark placeholder in CSS if image missing */
@@ -164,15 +186,26 @@ h2.section-title {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, transparent 0%, #000 100%);
+    background: linear-gradient(to right, #00000024 0%, #000000cf 50%, #0000005e 100%);
     pointer-events: none;
+    z-index: 1;
 }
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 1000px;
     margin: 0 auto;
+}
+
+.hero-bg-image {
+    z-index: 0;
+    object-fit: cover;
+    object-position: top;
+}
+
+.hero > span {
+    z-index: 0;
 }
 
 .hero-title {
@@ -388,7 +421,7 @@ h2.section-title {
 }
 
 .pricing-alert strong {
-    color: var(--primary-color);
+    color: #f3647c;
 }
 
 .payment-notice {
@@ -398,7 +431,7 @@ h2.section-title {
 }
 
 .payment-notice p {
-    color: #ff4d4d;
+    color: #ff854d;
     font-weight: 500;
     margin-bottom: 0;
 }
@@ -413,7 +446,7 @@ h2.section-title {
     position: absolute;
     top: 20px;
     right: -32px;
-    background-color: var(--primary-color);
+    background-color: #f4153a;
     color: #fff;
     padding: 7px 40px;
     transform: rotate(45deg);
@@ -464,7 +497,7 @@ h2.section-title {
     align-items: center;
 }
 
-.pricing-features li i {
+.pricing-features li .icon {
     color: var(--primary-color);
     margin-right: 12px;
     font-size: 1.1rem;
@@ -563,14 +596,14 @@ h2.section-title {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(236, 54, 85, 0.1);
 }
 
-.device-card i {
+.device-card .icon {
     font-size: 3rem;
     color: var(--text-white);
     transition: var(--transition);
     position: relative;
 }
 
-.device-card:hover i {
+.device-card:hover .icon {
     color: var(--primary-color);
     animation: iconGlow 1.5s infinite alternate;
 }
@@ -670,6 +703,7 @@ h2.section-title {
 .footer-logo img {
     max-height: 50px;
     width: auto;
+    height: auto;
 }
 
 .footer-desc {
@@ -1608,6 +1642,12 @@ h2.section-title {
     top: 0
 }
 
+.poster-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 .poster_Loader_684939 {
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
@@ -1726,13 +1766,13 @@ h2.section-title {
     display: none;
 }
 
-.faq-question i {
+.faq-question .icon {
     transition: transform 0.3s ease;
     color: var(--primary-color);
     font-size: 1rem;
 }
 
-.faq-item[open] .faq-question i {
+.faq-item[open] .faq-question .icon {
     transform: rotate(180deg);
 }
 
@@ -1766,7 +1806,7 @@ h2.section-title {
     gap: 8px;
 }
 
-.hero-features li i {
+.hero-features li .icon {
     color: var(--primary-color);
 }
 
@@ -1823,6 +1863,12 @@ h2.section-title {
 .contact-info {
     text-align: center;
     margin-bottom: 40px;
+}
+
+.contact-info-icon {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
 }
 
 .contact-info p {
@@ -1981,7 +2027,7 @@ h2.section-title {
     background-color: #20BA5A;
 }
 
-.whatsapp-float i {
+.whatsapp-float .icon {
     animation: pulse 2s infinite;
 }
 
@@ -2062,7 +2108,7 @@ h2.section-title {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.guide-card-header i {
+.guide-card-header .icon {
     font-size: 2.5rem;
     color: var(--primary-color);
     filter: drop-shadow(0 0 10px rgba(236, 54, 85, 0.3));

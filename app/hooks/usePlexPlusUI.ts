@@ -44,15 +44,7 @@ export function usePlexPlusUI() {
     const handleToggleClick = () => {
       if (!navLinks || !mobileToggle) return;
       navLinks.classList.toggle("active");
-      const icon = mobileToggle.querySelector("i");
-      if (!icon) return;
-      if (navLinks.classList.contains("active")) {
-        icon.classList.remove("fa-bars");
-        icon.classList.add("fa-times");
-      } else {
-        icon.classList.remove("fa-times");
-        icon.classList.add("fa-bars");
-      }
+      mobileToggle.classList.toggle("is-open", navLinks.classList.contains("active"));
     };
 
     mobileToggle?.addEventListener("click", handleToggleClick);
@@ -64,10 +56,7 @@ export function usePlexPlusUI() {
     const handleNavLinkClick = () => {
       if (!navLinks || !mobileToggle) return;
       navLinks.classList.remove("active");
-      const icon = mobileToggle.querySelector("i");
-      if (!icon) return;
-      icon.classList.remove("fa-times");
-      icon.classList.add("fa-bars");
+      mobileToggle.classList.remove("is-open");
     };
     navLinkEls.forEach((el) => el.addEventListener("click", handleNavLinkClick));
 

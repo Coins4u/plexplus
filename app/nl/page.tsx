@@ -1,22 +1,35 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { usePlexPlusUI } from "../hooks/usePlexPlusUI";
+import Icon from "../components/Icon";
+import PlexPlusUIClient from "../components/PlexPlusUIClient";
+
+const HERO_IMAGE = "/img/heroimg.png";
+const GRID_SIZES =
+  "(max-width: 900px) 50vw, (max-width: 1200px) 25vw, 280px";
+const POSTER_SIZES =
+  "(max-width: 700px) 50vw, (max-width: 1200px) 25vw, 240px";
+const PAYMENT_SIZES = "(max-width: 768px) 70vw, 320px";
 
 export default function NlHomePage() {
-  usePlexPlusUI();
-
   return (
     <>
+      <PlexPlusUIClient />
       <header className="header">
         <div className="container">
           <div className="nav-wrapper">
             <a href="#hero" className="logo">
-              <img src="/img/logo.png" alt="Plex Plus Logo" />
+              <Image
+                src="/img/logo.png"
+                alt="Plex Plus Logo"
+                width={160}
+                height={40}
+                sizes="160px"
+                priority
+              />
             </a>
             <div className="mobile-toggle">
-              <i className="fas fa-bars" />
+              <Icon name="bars" className="icon icon-bars" />
+              <Icon name="times" className="icon icon-times" />
             </div>
             <nav className="nav-links">
               <a href="#hero" className="nav-link">Home</a>
@@ -32,6 +45,15 @@ export default function NlHomePage() {
 
       <main role="main">
         <section id="hero" className="hero">
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="hero-bg-image"
+          />
           <div className="container hero-content">
             <h1 className="hero-title">Beste <span>IPTV Kopen</span> | Nederlandse IPTV Abonnement</h1>
             <p className="hero-subtitle">
@@ -41,9 +63,9 @@ export default function NlHomePage() {
               is de juiste keuze met premium kwaliteit en alle sportzenders.
             </p>
             <ul className="hero-features">
-              <li><i className="fas fa-check-circle" /> 4K/UHD IPTV Kwaliteit</li>
-              <li><i className="fas fa-check-circle" /> NL &amp; Internationale Zenders</li>
-              <li><i className="fas fa-check-circle" /> Niet-Goed-Geld-Terug Garantie</li>
+              <li><Icon name="check-circle" className="icon" /> 4K/UHD IPTV Kwaliteit</li>
+              <li><Icon name="check-circle" className="icon" /> NL &amp; Internationale Zenders</li>
+              <li><Icon name="check-circle" className="icon" /> Niet-Goed-Geld-Terug Garantie</li>
             </ul>
             <div className="hero-buttons">
               <a href="#pricing" className="btn btn-primary">Start Nu</a>
@@ -62,35 +84,75 @@ export default function NlHomePage() {
             </p>
             <div className="bento-grid">
               <div className="grid-item">
-                <img src="/img/sports/football.png" alt="Voetbal" />
+                <Image
+                  src="/img/sports/football.png"
+                  alt="Voetbal"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Voetbal</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/mma.png" alt="MMA" />
+                <Image
+                  src="/img/sports/mma.png"
+                  alt="MMA"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">MMA</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/basketball.png" alt="Basketbal" />
+                <Image
+                  src="/img/sports/basketball.png"
+                  alt="Basketbal"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Basketbal</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/motosports.png" alt="Motorsport" />
+                <Image
+                  src="/img/sports/motosports.png"
+                  alt="Motorsport"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Motorsport</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/tennis.png" alt="Tennis" />
+                <Image
+                  src="/img/sports/tennis.png"
+                  alt="Tennis"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Tennis</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/equestrian.png" alt="Paardensport" />
+                <Image
+                  src="/img/sports/equestrian.png"
+                  alt="Paardensport"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Paardensport</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/rugby.png" alt="Rugby" />
+                <Image
+                  src="/img/sports/rugby.png"
+                  alt="Rugby"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Rugby</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/omnisports-ar.png" alt="Alle Sporten" />
+                <Image
+                  src="/img/sports/omnisports-ar.png"
+                  alt="Alle Sporten"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Alle Sporten</h3></div>
               </div>
             </div>
@@ -114,7 +176,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/les-4-fantastiques-premiers-pas-film-mcu-banniere.webp" alt="Nieuwste Films 4K" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/les-4-fantastiques-premiers-pas-film-mcu-banniere.webp"
+                                alt="Nieuwste Films 4K"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -125,7 +195,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/maxresdefault.webp" alt="Actiefilms Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/maxresdefault.webp"
+                                alt="Actiefilms Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -136,7 +214,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/sinners.webp" alt="Meest Bekeken Films" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/sinners.webp"
+                                alt="Meest Bekeken Films"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -147,7 +233,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/fe5c2ef3-1c8a-4c9e-b722-b036f018856c.webp" alt="Populaire Films 2025" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/fe5c2ef3-1c8a-4c9e-b722-b036f018856c.webp"
+                                alt="Populaire Films 2025"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -158,7 +252,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/eszlm4m030kf1.webp" alt="Familiefilms" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/eszlm4m030kf1.webp"
+                                alt="Familiefilms"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -169,7 +271,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/Screenshot 2025-12-20 at 12.37.26.webp" alt="Thriller Films Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.37.26.webp"
+                                alt="Thriller Films Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -180,7 +290,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/Screenshot 2025-12-20 at 12.38.08.webp" alt="Exclusieve Films" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.38.08.webp"
+                                alt="Exclusieve Films"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -191,7 +309,15 @@ export default function NlHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/Screenshot 2025-12-20 at 12.39.35.webp" alt="Blockbuster Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.39.35.webp"
+                                alt="Blockbuster Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -208,21 +334,21 @@ export default function NlHomePage() {
             <h2 className="section-title">Hoe Werkt Het</h2>
             <div className="howto-grid">
               <div className="howto-card">
-                <div className="howto-number"><i className="fas fa-clipboard-check" /></div>
+                <div className="howto-number"><Icon name="clipboard-check" className="icon" /></div>
                 <h3 className="howto-title">1. Kies je Abonnement</h3>
                 <p className="howto-desc">
                   Bekijk onze flexibele opties en kies het pakket dat bij je past. Wij bieden <strong>IPTV abonnement Nederland legaal</strong> opties van 1, 3, 6 en 12 maanden voor zowel Standard als Premium servers.
                 </p>
               </div>
               <div className="howto-card">
-                <div className="howto-number"><i className="fas fa-credit-card" /></div>
+                <div className="howto-number"><Icon name="credit-card" className="icon" /></div>
                 <h3 className="howto-title">2. Veilige Betaling</h3>
                 <p className="howto-desc">
                   Rond je bestelling veilig af via onze gecodeerde betaal gateway. We accepteren alle grote creditcards en veilige betaalmethoden.
                 </p>
               </div>
               <div className="howto-card">
-                <div className="howto-number"><i className="fas fa-tv" /></div>
+                <div className="howto-number"><Icon name="tv" className="icon" /></div>
                 <h3 className="howto-title">3. Directe Activering</h3>
                 <p className="howto-desc">
                   Ontvang je inloggegevens via e-mail binnen enkele minuten. Vraag je je af <strong>hoe werkt IPTV</strong>? Volg onze simpele gids voor Smart TV, Firestick, Android, iOS en begin direct met kijken.
@@ -262,15 +388,22 @@ export default function NlHomePage() {
                   <h3 className="plan-name">{name}</h3>
                   <div className="plan-price">{price}<span>{suffix}</span></div>
                   <ul className="pricing-features">
-                    <li><i className="fas fa-check" /> <strong>20K+ HD Zenders</strong></li>
-                    <li><i className="fas fa-check" /> <strong>120K+ Films &amp; Series</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Betrouwbare Prestaties</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Alle Apparaten Ondersteund</strong></li>
-                    <li><i className="fas fa-check" /> <strong>24/7 Chat Ondersteuning</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Volwassenen Content (Optioneel)</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>20K+ HD Zenders</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>120K+ Films &amp; Series</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Betrouwbare Prestaties</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Alle Apparaten Ondersteund</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>24/7 Chat Ondersteuning</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Volwassenen Content (Optioneel)</strong></li>
                   </ul>
                   <a href="#" className={popular ? "btn btn-primary" : "btn btn-outline"}>Bestel Nu</a>
-                  <img src="/img/payments.png" alt="Geaccepteerde Betaalmethoden" className="payment-methods-img" />
+                  <Image
+                    src="/img/payments.png"
+                    alt="Geaccepteerde Betaalmethoden"
+                    width={500}
+                    height={60}
+                    sizes={PAYMENT_SIZES}
+                    className="payment-methods-img"
+                  />
                 </div>
               ))}
             </div>
@@ -286,15 +419,22 @@ export default function NlHomePage() {
                   <h3 className="plan-name">{name}</h3>
                   <div className="plan-price">{price}<span>{suffix}</span></div>
                   <ul className="pricing-features">
-                    <li><i className="fas fa-check" /> <strong>Premium Anti-Freeze Server</strong></li>
-                    <li><i className="fas fa-check" /> <strong>47K+ 4K/UHD Zenders</strong></li>
-                    <li><i className="fas fa-check" /> <strong>180K+ Films &amp; Series</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Prioriteit Bij Sportevenementen</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Wereldwijde Dekking (NL/EU/US)</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Volwassenen Content (Optioneel)</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Premium Anti-Freeze Server</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>47K+ 4K/UHD Zenders</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>180K+ Films &amp; Series</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Prioriteit Bij Sportevenementen</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Wereldwijde Dekking (NL/EU/US)</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Volwassenen Content (Optioneel)</strong></li>
                   </ul>
                   <a href="#" className={popular ? "btn btn-primary" : "btn btn-outline"}>Bestel Nu</a>
-                  <img src="/img/payments.png" alt="Geaccepteerde Betaalmethoden" className="payment-methods-img" />
+                  <Image
+                    src="/img/payments.png"
+                    alt="Geaccepteerde Betaalmethoden"
+                    width={500}
+                    height={60}
+                    sizes={PAYMENT_SIZES}
+                    className="payment-methods-img"
+                  />
                 </div>
               ))}
             </div>
@@ -309,42 +449,42 @@ export default function NlHomePage() {
             </p>
             <div className="features-grid">
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-tv" /></div>
+                <div className="feature-icon"><Icon name="tv" className="icon" /></div>
                 <div className="feature-content">
                   <h3>47.000+ IPTV Kanalen</h3>
                   <p>Toegang tot een enorme wereldwijde bibliotheek van live kanalen. Inclusief premium <strong>Nederlandse IPTV</strong> kanalen uit NL, VS, VK en Europa in HD &amp; 4K kwaliteit. <strong>IPTV lijst</strong> met alle zenders.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-film" /></div>
+                <div className="feature-icon"><Icon name="film" className="icon" /></div>
                 <div className="feature-content">
                   <h3>VOD Bibliotheek</h3>
                   <p>Onbeperkte toegang tot 180.000+ films en series. Compatibel met <strong>M3U lijsten</strong> en alle <strong>IPTV apps</strong>. Dagelijks geüpdatet met de nieuwste releases.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-bolt" /></div>
+                <div className="feature-icon"><Icon name="bolt" className="icon" /></div>
                 <div className="feature-content">
                   <h3>Betrouwbare IPTV Server</h3>
                   <p>Geniet van ononderbroken streaming met onze premium <strong>IPTV server</strong>. 99,9% uptime garandeert buffer-vrije kwaliteit. De <strong>beste IPTV voor Nederland</strong>.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-headset" /></div>
+                <div className="feature-icon"><Icon name="headset" className="icon" /></div>
                 <div className="feature-content">
                   <h3>24/7 Ondersteuning</h3>
                   <p>Ons expert support team staat 24/7/365 klaar via chat en e-mail om je te helpen met installatie en activatie op elk apparaat binnen enkele minuten.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-cogs" /></div>
+                <div className="feature-icon"><Icon name="cogs" className="icon" /></div>
                 <div className="feature-content">
                   <h3>IPTV Kastje &amp; Apps</h3>
                   <p>Compatibel met <strong>IPTV kastje</strong>, Smart TV, Firestick, Android Box. Vraag je af <strong>welke IPTV app voor Samsung TV</strong>? Wij ondersteunen alle apparaten met <strong>M3U lijsten</strong>.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-shield-alt" /></div>
+                <div className="feature-icon"><Icon name="shield-alt" className="icon" /></div>
                 <div className="feature-content">
                   <h3>Veilig &amp; Privé</h3>
                   <p>Jouw privacy is onze prioriteit. We gebruiken geavanceerde encryptie om veilig en anoniem te streamen met een strikt no-log beleid.</p>
@@ -362,12 +502,12 @@ export default function NlHomePage() {
               Onze <strong>IPTV-service</strong> werkt op al je favoriete apparaten. Of je nu <strong>IPTV wilt kijken op Firestick</strong>, Smart TV of mobiel, wij helpen je met een eenvoudige installatie en volledige ondersteuning.
             </p>
             <div className="devices-grid">
-              <div className="device-card"><i className="fab fa-amazon" /><h3>Firestick / Fire TV</h3></div>
-              <div className="device-card"><i className="fas fa-tv" /><h3>Smart TV (LG/Samsung)</h3></div>
-              <div className="device-card"><i className="fab fa-android" /><h3>Android-apparaten</h3></div>
-              <div className="device-card"><i className="fab fa-apple" /><h3>iOS / Apple TV</h3></div>
-              <div className="device-card"><i className="fas fa-laptop" /><h3>PC / Windows / Mac</h3></div>
-              <div className="device-card"><i className="fas fa-box" /><h3>MAG / Enigma2</h3></div>
+              <div className="device-card"><Icon name="amazon" className="icon" /><h3>Firestick / Fire TV</h3></div>
+              <div className="device-card"><Icon name="tv" className="icon" /><h3>Smart TV (LG/Samsung)</h3></div>
+              <div className="device-card"><Icon name="android" className="icon" /><h3>Android-apparaten</h3></div>
+              <div className="device-card"><Icon name="apple" className="icon" /><h3>iOS / Apple TV</h3></div>
+              <div className="device-card"><Icon name="laptop" className="icon" /><h3>PC / Windows / Mac</h3></div>
+              <div className="device-card"><Icon name="box" className="icon" /><h3>MAG / Enigma2</h3></div>
             </div>
           </div>
         </section>
@@ -377,17 +517,17 @@ export default function NlHomePage() {
             <h2 className="section-title">Klantbeoordelingen</h2>
             <div className="reviews-grid">
               <div className="review-card">
-                <div className="stars"><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /></div>
+                <div className="stars"><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /></div>
                 <p className="review-text">&quot;Zeker weten het <strong>beste IPTV voor Nederland</strong> in 2025. Geen haperingen tijdens voetbalwedstrijden en de beeldkwaliteit is fantastisch. Ik raad dit <strong>IPTV abonnement Nederland legaal</strong> zeker aan.&quot;</p>
                 <p className="review-author">- Mark V.</p>
               </div>
               <div className="review-card">
-                <div className="stars"><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star-half-alt" /></div>
+                <div className="stars"><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star-half" className="icon" /></div>
                 <p className="review-text">&quot;Geweldige selectie van films en series. Mijn gezin is dol op de kwaliteit van de <strong>gratis iptv m3u-lijsten</strong> variëteit. Ik zocht naar een goed alternatief en vond Plex Plus, top!&quot;</p>
                 <p className="review-author">- Sophie D.</p>
               </div>
               <div className="review-card">
-                <div className="stars"><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /></div>
+                <div className="stars"><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /></div>
                 <p className="review-text">&quot;De support heeft me goed geholpen met het instellen van mijn TV. Alles werkt perfect. Dit is precies <strong>wat is de beste IPTV voor Nederland</strong> als je kwaliteit zoekt.&quot;</p>
                 <p className="review-author">- Thomas B.</p>
               </div>
@@ -400,31 +540,31 @@ export default function NlHomePage() {
             <h2 className="section-title">Veelgestelde Vragen over IPTV</h2>
             <div className="faq-grid">
               <details className="faq-item">
-                <summary className="faq-question">Wat heb ik nodig voor IPTV? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Wat heb ik nodig voor IPTV? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Voor onze <strong>IPTV service</strong> heb je nodig: Smart TV met IPTV app, <strong>IPTV kastje</strong>, Firestick, of elk apparaat dat <strong>M3U lijsten</strong> ondersteunt. Vraag je af <strong>welke IPTV app voor Samsung TV</strong>? Wij bieden volledige ondersteuning. Internet van 15-25 Mbps aanbevolen.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Heb ik een VPN nodig voor IPTV? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Heb ik een VPN nodig voor IPTV? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Een VPN versleutelt je internetverkeer en beschermt je privacy. Het gebruik wordt aanbevolen voor extra veiligheid bij <strong>IPTV kopen</strong>. Kies altijd voor <strong>legale IPTV aanbieders</strong> zoals Plex Plus voor een veilige ervaring.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Kan ik IPTV op mijn telefoon kijken? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Kan ik IPTV op mijn telefoon kijken? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Ja! Gebruik <strong>IPTV apps</strong> zoals IPTV Smarters Pro op je telefoon. Wij bieden <strong>M3U lijsten</strong> en inloggegevens voor streaming overal. Vraag je <strong>wat is de beste IPTV app</strong>? Wij ondersteunen alle populaire apps.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Hoe werkt IPTV met WiFi? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Hoe werkt IPTV met WiFi? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Een verbinding van ten minste 10 Mbps wordt aanbevolen voor HD, en 16-25 Mbps voor stabiele Ultra HD 4K streaming.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Werkt IPTV op een oude TV? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Werkt IPTV op een oude TV? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Je kunt IPTV ontvangen op oudere televisies via een externe decoder (bijv. Android Box, Fire TV Stick). Deze decodeert het digitale signaal voor je scherm.</p>
                 </div>
@@ -438,7 +578,15 @@ export default function NlHomePage() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-brand">
-              <a href="#hero" className="footer-logo"><img src="/img/logo.png" alt="Plex Plus Logo" /></a>
+              <a href="#hero" className="footer-logo">
+                <Image
+                  src="/img/logo.png"
+                  alt="Plex Plus Logo"
+                  width={160}
+                  height={50}
+                  sizes="160px"
+                />
+              </a>
               <p className="footer-desc">Premium IPTV Abonnement Service.</p>
             </div>
             <div className="footer-links">
@@ -466,7 +614,7 @@ export default function NlHomePage() {
       </footer>
 
       <a href="https://wa.me/14302485823" className="whatsapp-float" target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-whatsapp" />
+        <Icon name="whatsapp" className="icon" />
       </a>
     </>
   );

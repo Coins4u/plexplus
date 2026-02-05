@@ -1,7 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
+import Icon from "./Icon";
 import { usePlexPlusUI } from "../hooks/usePlexPlusUI";
 import type { Locale, LocaleLabels } from "../lib/localeLabels";
 
@@ -21,10 +20,18 @@ export function LocaleLayout({ locale, labels, children }: LocaleLayoutProps) {
         <div className="container">
           <div className="nav-wrapper">
             <Link href={base} className="logo">
-              <img src="/img/logo.png" alt="Plex Plus Logo" />
+              <Image
+                src="/img/logo.png"
+                alt="Plex Plus Logo"
+                width={160}
+                height={40}
+                sizes="160px"
+                priority
+              />
             </Link>
             <div className="mobile-toggle">
-              <i className="fas fa-bars" />
+              <Icon name="bars" className="icon icon-bars" />
+              <Icon name="times" className="icon icon-times" />
             </div>
             <nav className="nav-links">
               <Link href={base} className="nav-link">
@@ -60,7 +67,13 @@ export function LocaleLayout({ locale, labels, children }: LocaleLayoutProps) {
           <div className="footer-content">
             <div className="footer-brand">
               <Link href={base} className="footer-logo">
-                <img src="/img/logo.png" alt="Plex Plus Logo" />
+                <Image
+                  src="/img/logo.png"
+                  alt="Plex Plus Logo"
+                  width={160}
+                  height={50}
+                  sizes="160px"
+                />
               </Link>
               <p className="footer-desc">{labels.footer.desc}</p>
             </div>

@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
+import Icon from "./Icon";
+
 interface GuideContentProps {
   title: string;
   subtitle: string;
@@ -24,31 +26,31 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
 
         <div className="platform-nav">
           <a href="#firestick" className="platform-btn">
-            <i className="fab fa-amazon" /> Firestick
+            <Icon name="amazon" className="icon" /> Firestick
           </a>
           <a href="#android" className="platform-btn">
-            <i className="fab fa-android" /> Android
+            <Icon name="android" className="icon" /> Android
           </a>
           <a href="#ios" className="platform-btn">
-            <i className="fab fa-apple" /> iOS/Apple
+            <Icon name="apple" className="icon" /> iOS/Apple
           </a>
           <a href="#smart-tv" className="platform-btn">
-            <i className="fas fa-tv" /> Smart TV
+            <Icon name="tv" className="icon" /> Smart TV
           </a>
           <a href="#windows" className="platform-btn">
-            <i className="fab fa-windows" /> Windows
+            <Icon name="windows" className="icon" /> Windows
           </a>
           <a href="#kodi" className="platform-btn">
-            <i className="fas fa-play-circle" /> Kodi
+            <Icon name="play-circle" className="icon" /> Kodi
           </a>
           <a href="#mag" className="platform-btn">
-            <i className="fas fa-box" /> MAG Box
+            <Icon name="box" className="icon" /> MAG Box
           </a>
         </div>
 
         <div id="firestick" className="guide-card">
           <div className="guide-card-header">
-            <i className="fab fa-amazon" />
+            <Icon name="amazon" className="icon" />
             <h3>Fire TV Stick / Amazon Firestick</h3>
           </div>
           <div className="steps-container">
@@ -73,7 +75,7 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
                   app.
                 </p>
                 <div className="important-box">
-                  <i className="fas fa-info-circle" /> If you don&apos;t see Developer Options, go to <b>About</b> and
+                  <Icon name="info-circle" className="icon" /> If you don&apos;t see Developer Options, go to <b>About</b> and
                   click your device name 7 times.
                 </div>
               </div>
@@ -105,7 +107,7 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
 
         <div id="android" className="guide-card">
           <div className="guide-card-header">
-            <i className="fab fa-android" />
+            <Icon name="android" className="icon" />
             <h3>Android &amp; iOS (Mobile/Tablet)</h3>
           </div>
           <div className="steps-container">
@@ -145,7 +147,7 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
 
         <div id="smart-tv" className="guide-card">
           <div className="guide-card-header">
-            <i className="fas fa-tv" />
+            <Icon name="tv" className="icon" />
             <h3>Smart TV (Samsung &amp; LG)</h3>
           </div>
           <div className="steps-container">
@@ -181,7 +183,7 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
 
         <div id="windows" className="guide-card">
           <div className="guide-card-header">
-            <i className="fab fa-windows" />
+            <Icon name="windows" className="icon" />
             <h3>Windows PC / Laptop</h3>
           </div>
           <div className="steps-container">
@@ -219,7 +221,7 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
 
         <div id="kodi" className="guide-card">
           <div className="guide-card-header">
-            <i className="fas fa-play-circle" />
+            <Icon name="play-circle" className="icon" />
             <h3>KODI Setup (PVR IPTV Simple Client)</h3>
           </div>
           <div className="steps-container">
@@ -265,7 +267,7 @@ export function GuideContent({ title, subtitle }: GuideContentProps) {
 
         <div id="mag" className="guide-card">
           <div className="guide-card-header">
-            <i className="fas fa-box" />
+            <Icon name="box" className="icon" />
             <h3>MAG Box (250, 254, 256 etc.)</h3>
           </div>
           <div className="steps-container">

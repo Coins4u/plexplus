@@ -1,22 +1,35 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { usePlexPlusUI } from "../hooks/usePlexPlusUI";
+import Icon from "../components/Icon";
+import PlexPlusUIClient from "../components/PlexPlusUIClient";
+
+const HERO_IMAGE = "/img/heroimg.png";
+const GRID_SIZES =
+  "(max-width: 900px) 50vw, (max-width: 1200px) 25vw, 280px";
+const POSTER_SIZES =
+  "(max-width: 700px) 50vw, (max-width: 1200px) 25vw, 240px";
+const PAYMENT_SIZES = "(max-width: 768px) 70vw, 320px";
 
 export default function DeHomePage() {
-  usePlexPlusUI();
-
   return (
     <>
+      <PlexPlusUIClient />
       <header className="header">
         <div className="container">
           <div className="nav-wrapper">
             <a href="#hero" className="logo">
-              <img src="/img/logo.png" alt="Plex Plus Logo" />
+              <Image
+                src="/img/logo.png"
+                alt="Plex Plus Logo"
+                width={160}
+                height={40}
+                sizes="160px"
+                priority
+              />
             </a>
             <div className="mobile-toggle">
-              <i className="fas fa-bars" />
+              <Icon name="bars" className="icon icon-bars" />
+              <Icon name="times" className="icon icon-times" />
             </div>
             <nav className="nav-links">
               <a href="#hero" className="nav-link">Startseite</a>
@@ -32,6 +45,15 @@ export default function DeHomePage() {
 
       <main role="main">
         <section id="hero" className="hero">
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="hero-bg-image"
+          />
           <div className="container hero-content">
             <h1 className="hero-title">Beste <span>IPTV Deutschland</span> | Bester IPTV Anbieter</h1>
             <p className="hero-subtitle">
@@ -41,9 +63,9 @@ export default function DeHomePage() {
               richtige Wahl mit Premium-Qualität und allen Sportkanälen.
             </p>
             <ul className="hero-features">
-              <li><i className="fas fa-check-circle" /> 4K/UHD IPTV Qualität</li>
-              <li><i className="fas fa-check-circle" /> Premium IPTV Deutschland</li>
-              <li><i className="fas fa-check-circle" /> Geld-zurück-Garantie</li>
+              <li><Icon name="check-circle" className="icon" /> 4K/UHD IPTV Qualität</li>
+              <li><Icon name="check-circle" className="icon" /> Premium IPTV Deutschland</li>
+              <li><Icon name="check-circle" className="icon" /> Geld-zurück-Garantie</li>
             </ul>
             <div className="hero-buttons">
               <a href="#pricing" className="btn btn-primary">Jetzt starten</a>
@@ -62,35 +84,75 @@ export default function DeHomePage() {
             </p>
             <div className="bento-grid">
               <div className="grid-item">
-                <img src="/img/sports/football.png" alt="Fußball" />
+                <Image
+                  src="/img/sports/football.png"
+                  alt="Fußball"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Fußball</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/mma.png" alt="MMA" />
+                <Image
+                  src="/img/sports/mma.png"
+                  alt="MMA"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">MMA</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/basketball.png" alt="Basketball" />
+                <Image
+                  src="/img/sports/basketball.png"
+                  alt="Basketball"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Basketball</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/motosports.png" alt="Motorsport" />
+                <Image
+                  src="/img/sports/motosports.png"
+                  alt="Motorsport"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Motorsport</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/tennis.png" alt="Tennis" />
+                <Image
+                  src="/img/sports/tennis.png"
+                  alt="Tennis"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Tennis</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/equestrian.png" alt="Reiten" />
+                <Image
+                  src="/img/sports/equestrian.png"
+                  alt="Reiten"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Reiten</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/rugby.png" alt="Rugby" />
+                <Image
+                  src="/img/sports/rugby.png"
+                  alt="Rugby"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Rugby</h3></div>
               </div>
               <div className="grid-item">
-                <img src="/img/sports/omnisports-ar.png" alt="Alle Sportarten" />
+                <Image
+                  src="/img/sports/omnisports-ar.png"
+                  alt="Alle Sportarten"
+                  fill
+                  sizes={GRID_SIZES}
+                />
                 <div className="grid-item-content"><h3 className="grid-item-title">Alle Sportarten</h3></div>
               </div>
             </div>
@@ -114,7 +176,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/les-4-fantastiques-premiers-pas-film-mcu-banniere.webp" alt="Latest Movie Releases 4K" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/les-4-fantastiques-premiers-pas-film-mcu-banniere.webp"
+                                alt="Latest Movie Releases 4K"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -125,7 +195,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/maxresdefault.webp" alt="Action Movies Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/maxresdefault.webp"
+                                alt="Action Movies Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -136,7 +214,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/sinners.webp" alt="Top Rated Films Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/sinners.webp"
+                                alt="Top Rated Films Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -147,7 +233,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/fe5c2ef3-1c8a-4c9e-b722-b036f018856c.webp" alt="Popular Movies 2025" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/fe5c2ef3-1c8a-4c9e-b722-b036f018856c.webp"
+                                alt="Popular Movies 2025"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -158,7 +252,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/eszlm4m030kf1.webp" alt="Family & Kids Movies" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/eszlm4m030kf1.webp"
+                                alt="Family & Kids Movies"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -169,7 +271,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/Screenshot 2025-12-20 at 12.37.26.webp" alt="Thriller Movies Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.37.26.webp"
+                                alt="Thriller Movies Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -180,7 +290,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/Screenshot 2025-12-20 at 12.38.08.webp" alt="Exclusive Movie Premieres" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.38.08.webp"
+                                alt="Exclusive Movie Premieres"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -191,7 +309,15 @@ export default function DeHomePage() {
                       <a className="ImageWall__grid__item__contentWrap__linker_Ef3d78" aria-disabled="false">
                         <div className="ImageWallContent_34d1ae">
                           <div data-e2e="poster" className="poster_684939">
-                            <img loading="lazy" src="/img/films/Screenshot 2025-12-20 at 12.39.35.webp" alt="Blockbuster Cinema Streaming" className="ImageType_149741 cover poster__cover_684939" />
+                            <div className="poster-media">
+                              <Image
+                                src="/img/films/Screenshot 2025-12-20 at 12.39.35.webp"
+                                alt="Blockbuster Cinema Streaming"
+                                fill
+                                sizes={POSTER_SIZES}
+                                className="ImageType_149741 cover poster__cover_684939"
+                              />
+                            </div>
                           </div>
                         </div>
                       </a>
@@ -208,21 +334,21 @@ export default function DeHomePage() {
             <h2 className="section-title">Wie es funktioniert</h2>
             <div className="howto-grid">
               <div className="howto-card">
-                <div className="howto-number"><i className="fas fa-clipboard-check" /></div>
+                <div className="howto-number"><Icon name="clipboard-check" className="icon" /></div>
                 <h3 className="howto-title">1. Abo wählen</h3>
                 <p className="howto-desc">
                   Durchstöbern Sie unsere flexiblen Preisoptionen und wählen Sie das Paket, das zu Ihren Bedürfnissen passt. Wir bieten Laufzeiten von 1, 3, 6 und 12 Monaten für Standard und Premium Server.
                 </p>
               </div>
               <div className="howto-card">
-                <div className="howto-number"><i className="fas fa-credit-card" /></div>
+                <div className="howto-number"><Icon name="credit-card" className="icon" /></div>
                 <h3 className="howto-title">2. Sichere Bezahlung</h3>
                 <p className="howto-desc">
                   Schließen Sie Ihren Kauf sicher über unser verschlüsseltes Zahlungs-Gateway ab. Wir akzeptieren gängige Kreditkarten und weitere bequeme Zahlungsmethoden.
                 </p>
               </div>
               <div className="howto-card">
-                <div className="howto-number"><i className="fas fa-tv" /></div>
+                <div className="howto-number"><Icon name="tv" className="icon" /></div>
                 <h3 className="howto-title">3. Sofortige Aktivierung</h3>
                 <p className="howto-desc">
                   Erhalten Sie Ihre <strong>IPTV Zugangsdaten</strong> per E-Mail innerhalb weniger Minuten. Folgen Sie unserer einfachen Installationsanleitung für Ihr Gerät (Smart TV, Firestick, Android, iOS) und starten Sie sofort mit <strong>Top IPTV Streaming</strong>.
@@ -262,15 +388,22 @@ export default function DeHomePage() {
                   <h3 className="plan-name">{name}</h3>
                   <div className="plan-price">{price}<span>{suffix}</span></div>
                   <ul className="pricing-features">
-                    <li><i className="fas fa-check" /> <strong>20K+ HD Kanäle</strong></li>
-                    <li><i className="fas fa-check" /> <strong>120K+ Filme &amp; Serien</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Zuverlässige Leistung</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Alle Geräte unterstützt</strong></li>
-                    <li><i className="fas fa-check" /> <strong>24/7 Live-Chat Support</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Erwachseneninhalte (Optional)</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>20K+ HD Kanäle</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>120K+ Filme &amp; Serien</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Zuverlässige Leistung</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Alle Geräte unterstützt</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>24/7 Live-Chat Support</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Erwachseneninhalte (Optional)</strong></li>
                   </ul>
                   <a href="#" className={popular ? "btn btn-primary" : "btn btn-outline"}>Jetzt bestellen</a>
-                  <img src="/img/payments.png" alt="Accepted Payment Methods" className="payment-methods-img" />
+                  <Image
+                    src="/img/payments.png"
+                    alt="Accepted Payment Methods"
+                    width={500}
+                    height={60}
+                    sizes={PAYMENT_SIZES}
+                    className="payment-methods-img"
+                  />
                 </div>
               ))}
             </div>
@@ -286,15 +419,22 @@ export default function DeHomePage() {
                   <h3 className="plan-name">{name}</h3>
                   <div className="plan-price">{price}<span>{suffix}</span></div>
                   <ul className="pricing-features">
-                    <li><i className="fas fa-check" /> <strong>Premium Anti-Puffer Server</strong></li>
-                    <li><i className="fas fa-check" /> <strong>47K+ 4K/UHD Kanäle</strong></li>
-                    <li><i className="fas fa-check" /> <strong>180K+ Filme &amp; Serien</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Priorität bei Sport-Events</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Globale Abdeckung (US/UK/EU)</strong></li>
-                    <li><i className="fas fa-check" /> <strong>Erwachseneninhalte (Optional)</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Premium Anti-Puffer Server</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>47K+ 4K/UHD Kanäle</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>180K+ Filme &amp; Serien</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Priorität bei Sport-Events</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Globale Abdeckung (US/UK/EU)</strong></li>
+                    <li><Icon name="check" className="icon" /> <strong>Erwachseneninhalte (Optional)</strong></li>
                   </ul>
                   <a href="#" className={popular ? "btn btn-primary" : "btn btn-outline"}>Jetzt bestellen</a>
-                  <img src="/img/payments.png" alt="Accepted Payment Methods" className="payment-methods-img" />
+                  <Image
+                    src="/img/payments.png"
+                    alt="Accepted Payment Methods"
+                    width={500}
+                    height={60}
+                    sizes={PAYMENT_SIZES}
+                    className="payment-methods-img"
+                  />
                 </div>
               ))}
             </div>
@@ -309,42 +449,42 @@ export default function DeHomePage() {
             </p>
             <div className="features-grid">
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-tv" /></div>
+                <div className="feature-icon"><Icon name="tv" className="icon" /></div>
                 <div className="feature-content">
                   <h3>47.000+ IPTV Kanäle</h3>
                   <p>Zugriff auf eine riesige Bibliothek von Live-Kanälen. Enthält <strong>deutsche IPTV</strong> Premium-Kanäle aus DE, USA, UK und Europa in HD &amp; 4K-Qualität. Vollständige <strong>IPTV Deutschland</strong> Kanalliste.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-film" /></div>
+                <div className="feature-icon"><Icon name="film" className="icon" /></div>
                 <div className="feature-content">
                   <h3>VOD Bibliothek</h3>
                   <p>Unbegrenzter Zugang zu 180.000+ Filmen und Serien. Kompatibel mit <strong>M3U Playlists</strong> und allen <strong>IPTV Apps</strong>. Täglich aktualisiert mit den neuesten Veröffentlichungen.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-bolt" /></div>
+                <div className="feature-icon"><Icon name="bolt" className="icon" /></div>
                 <div className="feature-content">
                   <h3>Zuverlässiger IPTV Server</h3>
                   <p>Genießen Sie unterbrechungsfreies Streaming mit unserem Premium <strong>IPTV Server</strong>. 99,9% Uptime garantiert pufferfreie Qualität. Der <strong>beste IPTV Anbieter</strong> für Deutschland.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-headset" /></div>
+                <div className="feature-icon"><Icon name="headset" className="icon" /></div>
                 <div className="feature-content">
                   <h3>24/7 Support</h3>
                   <p>Unser Experten-Support ist 24/7/365 per Live-Chat und E-Mail erreichbar, um bei der Installation und Aktivierung auf jedem Gerät innerhalb von Minuten zu helfen.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-cogs" /></div>
+                <div className="feature-icon"><Icon name="cogs" className="icon" /></div>
                 <div className="feature-content">
                   <h3>Einfach zu installieren</h3>
                   <p>Kompatibel mit allen Geräten, einschließlich Smart TV, Firestick, Android Box. Unser Service unterstützt <strong>M3U Playlists</strong> und alle <strong>IPTV Apps</strong>. <strong>IPTV kaufen</strong> und sofort starten.</p>
                 </div>
               </div>
               <div className="feature-item">
-                <div className="feature-icon"><i className="fas fa-shield-alt" /></div>
+                <div className="feature-icon"><Icon name="shield-alt" className="icon" /></div>
                 <div className="feature-content">
                   <h3>Sicher &amp; Privat</h3>
                   <p>Ihre Privatsphäre ist unsere Priorität. Wir verwenden fortschrittliche Verschlüsselung, um sicheres, anonymes Streaming mit einer strikten No-Logs-Richtlinie zu gewährleisten.</p>
@@ -362,12 +502,12 @@ export default function DeHomePage() {
               Unser <strong>IPTV-Dienst</strong> funktioniert auf all Ihren Lieblingsgeräten. Egal, ob Sie <strong>IPTV auf dem Firestick</strong>, Smart TV oder Mobilgerät schauen möchten, wir bieten Ihnen eine einfache Installation und umfassenden Support.
             </p>
             <div className="devices-grid">
-              <div className="device-card"><i className="fab fa-amazon" /><h3>Firestick / Fire TV</h3></div>
-              <div className="device-card"><i className="fas fa-tv" /><h3>Smart TV (LG/Samsung)</h3></div>
-              <div className="device-card"><i className="fab fa-android" /><h3>Android-Geräte</h3></div>
-              <div className="device-card"><i className="fab fa-apple" /><h3>iOS / Apple TV</h3></div>
-              <div className="device-card"><i className="fas fa-laptop" /><h3>PC / Windows / Mac</h3></div>
-              <div className="device-card"><i className="fas fa-box" /><h3>MAG / Enigma2</h3></div>
+              <div className="device-card"><Icon name="amazon" className="icon" /><h3>Firestick / Fire TV</h3></div>
+              <div className="device-card"><Icon name="tv" className="icon" /><h3>Smart TV (LG/Samsung)</h3></div>
+              <div className="device-card"><Icon name="android" className="icon" /><h3>Android-Geräte</h3></div>
+              <div className="device-card"><Icon name="apple" className="icon" /><h3>iOS / Apple TV</h3></div>
+              <div className="device-card"><Icon name="laptop" className="icon" /><h3>PC / Windows / Mac</h3></div>
+              <div className="device-card"><Icon name="box" className="icon" /><h3>MAG / Enigma2</h3></div>
             </div>
           </div>
         </section>
@@ -377,17 +517,17 @@ export default function DeHomePage() {
             <h2 className="section-title">Kundenbewertungen</h2>
             <div className="reviews-grid">
               <div className="review-card">
-                <div className="stars"><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /></div>
+                <div className="stars"><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /></div>
                 <p className="review-text">&quot;Der <strong>beste IPTV Service</strong> 2025, ohne Zweifel. Kein Puffer bei großen Spielen und die Bildqualität ist unglaublich. Ich kann diesen <strong>IPTV Anbieter</strong> nur wärmstens empfehlen.&quot;</p>
                 <p className="review-author">- John D.</p>
               </div>
               <div className="review-card">
-                <div className="stars"><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star-half-alt" /></div>
+                <div className="stars"><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star-half" className="icon" /></div>
                 <p className="review-text">&quot;Großartige Auswahl an Filmen und Serien. Meine Familie liebt die Qualität der <strong>IPTV Streams</strong>. Das <strong>beste IPTV</strong> für zuverlässige Unterhaltung!&quot;</p>
                 <p className="review-author">- Sarah M.</p>
               </div>
               <div className="review-card">
-                <div className="stars"><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /><i className="fas fa-star" /></div>
+                <div className="stars"><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /><Icon name="star" className="icon" /></div>
                 <p className="review-text">&quot;Der Support war sehr hilfreich beim Einrichten meines Geräts. Alles funktioniert jetzt perfekt. Definitiv ein <strong>Top bewerteter IPTV</strong> Dienst.&quot;</p>
                 <p className="review-author">- Michael R.</p>
               </div>
@@ -400,31 +540,31 @@ export default function DeHomePage() {
             <h2 className="section-title">Häufig gestellte Fragen zu IPTV Deutschland</h2>
             <div className="faq-grid">
               <details className="faq-item">
-                <summary className="faq-question">Was brauche ich für IPTV? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Was brauche ich für IPTV? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Für unseren <strong>IPTV Service</strong> benötigen Sie: Smart TV mit IPTV App, Firestick, oder jedes Gerät, das <strong>M3U Playlists</strong> unterstützt. Wir bieten <strong>deutsche IPTV</strong> kompatibel mit allen Geräten. Internet 15-25 Mbps empfohlen.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Brauche ich ein VPN für IPTV? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Brauche ich ein VPN für IPTV? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Ein VPN verschlüsselt Ihren Datenverkehr und schützt Ihre Privatsphäre. Die Nutzung wird für zusätzliche Sicherheit mit <strong>IPTV Deutschland</strong> empfohlen. Wählen Sie immer <strong>IPTV legal</strong> wie Plex Plus für eine sichere Erfahrung.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Kann ich IPTV auf meinem Handy schauen? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Kann ich IPTV auf meinem Handy schauen? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Ja! Verwenden Sie <strong>IPTV Apps</strong> wie IPTV Smarters Pro auf Ihrem Telefon. Wir bieten <strong>M3U Playlists</strong> und Zugangsdaten für Streaming überall. Unser <strong>IPTV Service</strong> funktioniert perfekt auf iOS und Android.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Braucht man eine gute WLAN-Verbindung für IPTV? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Braucht man eine gute WLAN-Verbindung für IPTV? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Es wird allgemein eine Internetverbindung von mindestens 10 Mbps für HD-Streaming und 16 Mbps für Ultra HD 4K-Streaming empfohlen.</p>
                 </div>
               </details>
               <details className="faq-item">
-                <summary className="faq-question">Funktioniert IPTV auf einem normalen Fernseher? <i className="fas fa-chevron-down" /></summary>
+                <summary className="faq-question">Funktioniert IPTV auf einem normalen Fernseher? <Icon name="chevron-down" className="icon" /></summary>
                 <div className="faq-answer">
                   <p>Sie können IPTV problemlos auf älteren TV-Modellen empfangen, benötigen jedoch einen externen Decoder (z.B. Android Box, Fire TV Stick). Dieser decodiert das digitale Signal und zeigt das Bild auf Ihrem TV-Bildschirm an.</p>
                 </div>
@@ -438,7 +578,15 @@ export default function DeHomePage() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-brand">
-              <a href="#hero" className="footer-logo"><img src="/img/logo.png" alt="Plex Plus Logo" /></a>
+              <a href="#hero" className="footer-logo">
+                <Image
+                  src="/img/logo.png"
+                  alt="Plex Plus Logo"
+                  width={160}
+                  height={50}
+                  sizes="160px"
+                />
+              </a>
               <p className="footer-desc">Premium IPTV Subscription Service.</p>
             </div>
             <div className="footer-links">
@@ -466,7 +614,7 @@ export default function DeHomePage() {
       </footer>
 
       <a href="https://wa.me/14302485823" className="whatsapp-float" target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-whatsapp" />
+        <Icon name="whatsapp" className="icon" />
       </a>
     </>
   );

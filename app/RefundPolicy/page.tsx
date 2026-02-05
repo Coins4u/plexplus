@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import Icon from "../components/Icon";
 import { usePlexPlusUI } from "../hooks/usePlexPlusUI";
 
 export default function RefundPolicyPage() {
@@ -16,7 +17,8 @@ export default function RefundPolicyPage() {
               <img src="/img/logo.png" alt="Plex Plus Logo" />
             </Link>
             <div className="mobile-toggle">
-              <i className="fas fa-bars" />
+              <Icon name="bars" className="icon icon-bars" />
+              <Icon name="times" className="icon icon-times" />
             </div>
             <nav className="nav-links">
               <Link href="/" className="nav-link">
