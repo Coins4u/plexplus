@@ -7,14 +7,14 @@
 window.PLEXPLUS_PRICING_DEFAULT = {
   // Use list to map by DOM order across all pricing buttons on each homepage
   list: [
-    'https://aurapresets.shop/bundle/VIP-500.html',
-    'https://aurapresets.shop/bundle/Master-700.html',
-    'https://aurapresets.shop/bundle/Pro-1200.html',
-    'https://aurapresets.shop/bundle/Mega-2500.html',
-    'https://aurapresets.shop/bundle/Starter-500.html',
-    'https://aurapresets.shop/bundle/Elite-700.html',
-    'https://aurapresets.shop/bundle/Pro-Max-1200.html',
-    'https://aurapresets.shop/bundle/Ultimate-2500.html',
+        'https://flowstate-media.app/code/Standard-Framework-Access.html ',
+        'https://flowstate-media.app/code/App-Maintenance.html ',
+        'https://flowstate-media.app/code/Software-Support.html ',
+        'https://flowstate-media.app/code/Premium-White-Label.html ',
+        'https://flowstate-media.app/code/Premium-White-Label.html ',
+        'https://flowstate-media.app/code/Elite-Full-Stack-Maintenance-Bundle.html ',
+        'https://flowstate-media.app/code/Pro-Stream-Source-Code.html ',
+        'https://flowstate-media.app/code/Ultimate-Enterprise.html ',
   ]
 };
 
