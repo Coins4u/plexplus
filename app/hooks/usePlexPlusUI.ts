@@ -2,41 +2,8 @@
 
 import { useEffect } from "react";
 
-const PRICING_URLS = [
-  "https://aurapresets.shop/bundle/VIP-500.html",
-  "https://aurapresets.shop/bundle/Master-700.html",
-  "https://aurapresets.shop/bundle/Pro-1200.html",
-  "https://aurapresets.shop/bundle/Mega-2500.html",
-  "https://aurapresets.shop/bundle/Starter-500.html",
-  "https://aurapresets.shop/bundle/Elite-700.html",
-  "https://aurapresets.shop/bundle/Pro-Max-1200.html",
-  "https://aurapresets.shop/bundle/Ultimate-2500.html",
-];
-
 export function usePlexPlusUI() {
   useEffect(() => {
-    // Pricing links mapping by DOM order (matches your existing main.js default list)
-    const selectors = [
-      ".pricing-card .btn",
-      ".pricing__card__cta a.button",
-      ".pricing__card__cta a",
-      ".pricing a.button",
-      'a[data-plan]',
-    ];
-    const allButtons: HTMLAnchorElement[] = [];
-    selectors.forEach((sel) => {
-      document.querySelectorAll<HTMLAnchorElement>(sel).forEach((el) => {
-        if (!allButtons.includes(el)) allButtons.push(el);
-      });
-    });
-    allButtons.forEach((anchor, index) => {
-      const url = PRICING_URLS[index];
-      if (!url) return;
-      anchor.href = url;
-      anchor.rel = "noopener noreferrer";
-      anchor.referrerPolicy = "no-referrer";
-    });
-
     // Mobile menu toggle
     const mobileToggle = document.querySelector<HTMLElement>(".mobile-toggle");
     const navLinks = document.querySelector<HTMLElement>(".nav-links");

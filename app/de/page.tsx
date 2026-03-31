@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Icon from "../components/Icon";
 import PlexPlusUIClient from "../components/PlexPlusUIClient";
+import OrderCaptureModal from "../components/OrderCaptureModal";
 
 const HERO_IMAGE = "/img/heroimg.png";
 const GRID_SIZES =
@@ -14,6 +15,7 @@ export default function DeHomePage() {
   return (
     <>
       <PlexPlusUIClient />
+      <OrderCaptureModal />
       <header className="header">
         <div className="container">
           <div className="nav-wrapper">
