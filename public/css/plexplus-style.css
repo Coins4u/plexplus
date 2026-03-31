@@ -144,6 +144,19 @@ h2.section-title {
     display: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: var(--text-white);
+}
+
+.mobile-toggle .icon-times {
+    display: none;
+}
+
+.mobile-toggle.is-open .icon-bars {
+    display: none;
+}
+
+.mobile-toggle.is-open .icon-times {
+    display: block;
 }
 
 /* Hero Section */
@@ -741,7 +754,9 @@ h2.section-title {
     }
 
     .mobile-toggle {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         z-index: 1001;
     }
 
