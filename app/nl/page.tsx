@@ -370,10 +370,10 @@ export default function NlHomePage() {
             </div>
             <div id="standard-plans" className="pricing-container active">
               {[
-                ["1 Maand", "€14.59", "/Maand"],
-                ["3 Maanden", "€24.56", "/3 Maanden", true, "Beste Waarde"],
-                ["6 Maanden", "€34.78", "/6 Maanden"],
-                ["12 Maanden", "€49.99", "/Jaar"],
+                ["1 Maand", "€15.23", "/Maand"],
+                ["3 Maanden", "€26.34", "/3 Maanden", true, "Beste Waarde"],
+                ["6 Maanden", "€36.78", "/6 Maanden"],
+                ["12 Maanden", "€48.98", "/Jaar"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}
@@ -401,10 +401,10 @@ export default function NlHomePage() {
             </div>
             <div id="premium-plans" className="pricing-container">
               {[
-                ["1 Maand Premium", "€25.86", "/Maand"],
-                ["3 Maanden Premium", "€36.45", "/3 Maanden", true, "Top Keuze"],
-                ["6 Maanden Premium", "€45.28", "/6 Maanden"],
-                ["12 Maanden Premium", "€67.98", "/Jaar"],
+                ["1 Maand Premium", "€25.32", "/Maand"],
+                ["3 Maanden Premium", "€37.13", "/3 Maanden", true, "Top Keuze"],
+                ["6 Maanden Premium", "€45.09", "/6 Maanden"],
+                ["12 Maanden Premium", "€68.24", "/Jaar"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}
