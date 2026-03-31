@@ -4,7 +4,6 @@ import Icon from "./components/Icon";
 import PlexPlusUIClient from "./components/PlexPlusUIClient";
 import OrderCaptureModal from "./components/OrderCaptureModal";
 
-const HERO_IMAGE = "/img/heroimg.png";
 const GRID_SIZES =
   "(max-width: 900px) 50vw, (max-width: 1200px) 25vw, 280px";
 const POSTER_SIZES =
@@ -59,15 +58,6 @@ export default function Home() {
 
       <main role="main">
         <section id="hero" className="hero">
-          <Image
-            src={HERO_IMAGE}
-            alt=""
-            fill
-            priority
-            fetchPriority="high"
-            sizes="100vw"
-            className="hero-bg-image"
-          />
           <div className="container hero-content">
             <h1 className="hero-title">
               Experience Premium <span>IPTV Service</span> | The Best IPTV
