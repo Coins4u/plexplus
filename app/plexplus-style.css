@@ -156,6 +156,12 @@ h2.section-title {
     position: relative;
 }
 
+@media (max-width: 768px) {
+    .hero {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.44) 0%, rgba(0, 0, 0, 0.84) 100%), url('/img/hero_sports_mobile_1769521080817.png') center center/cover no-repeat;
+    }
+}
+
 /* Note: Assuming hero-bg.jpg exists or will be replaced. For now using a dark placeholder in CSS if image missing */
 .hero::before {
     content: '';
