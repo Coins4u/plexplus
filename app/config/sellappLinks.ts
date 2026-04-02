@@ -13,7 +13,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "1 Month",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/901e29dffbb68-0000011081894",
     durationLabel: "1 Month",
-    priceLabel: "€15.23",
+    priceLabel: "€14.32",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -27,7 +27,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "3 Months",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/7678ac16efaa2-0000011081908",
     durationLabel: "3 Months",
-    priceLabel: "€26.34",
+    priceLabel: "€25.86",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -41,7 +41,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "6 Months",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/0f106d2836390-0000011081927",
     durationLabel: "6 Months",
-    priceLabel: "€36.78",
+    priceLabel: "€37.31",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -55,7 +55,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "12 Months",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/169882f5fee94-0000011081947",
     durationLabel: "12 Months",
-    priceLabel: "€48.98",
+    priceLabel: "€49.12",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -69,7 +69,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "1 Month Premium",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/e9c58afbe7b1d-0000011081955",
     durationLabel: "1 Month Premium",
-    priceLabel: "€25.32",
+    priceLabel: "€24.89",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
@@ -83,7 +83,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "3 Months Premium",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/eb8edc545c436-0000011081963",
     durationLabel: "3 Months Premium",
-    priceLabel: "€37.13",
+    priceLabel: "€36.49",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
@@ -97,7 +97,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "6 Months Premium",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/91f09f9f835ee-0000011081974",
     durationLabel: "6 Months Premium",
-    priceLabel: "€45.09",
+    priceLabel: "€46.65",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
@@ -111,7 +111,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
     tierName: "12 Months Premium",
     checkoutLink: "https://datadraft.mysellauth.com/checkout/3e348853d0030-0000011082013",
     durationLabel: "12 Months Premium",
-    priceLabel: "€68.24",
+    priceLabel: "€69.09",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",

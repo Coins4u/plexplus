@@ -370,10 +370,10 @@ export default function PtHomePage() {
             </div>
             <div id="standard-plans" className="pricing-container active">
               {[
-                ["1 Mês", "€15.23", "/Mês"],
-                ["3 Meses", "€26.34", "/3 Meses", true, "Melhor Valor"],
-                ["6 Meses", "€36.78", "/6 Meses"],
-                ["12 Meses", "€48.98", "/Ano"],
+                ["1 Mês", "€14.32", "/Mês"],
+                ["3 Meses", "€25.86", "/3 Meses", true, "Melhor Valor"],
+                ["6 Meses", "€37.31", "/6 Meses"],
+                ["12 Meses", "€49.12", "/Ano"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}
@@ -401,10 +401,10 @@ export default function PtHomePage() {
             </div>
             <div id="premium-plans" className="pricing-container">
               {[
-                ["1 Mês Premium", "€25.32", "/Mês"],
-                ["3 Meses Premium", "€37.13", "/3 Meses", true, "Top Escolha"],
-                ["6 Meses Premium", "€45.09", "/6 Meses"],
-                ["12 Meses Premium", "€68.24", "/Ano"],
+                ["1 Mês Premium", "€24.89", "/Mês"],
+                ["3 Meses Premium", "€36.49", "/3 Meses", true, "Top Escolha"],
+                ["6 Meses Premium", "€46.65", "/6 Meses"],
+                ["12 Meses Premium", "€69.09", "/Ano"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}
