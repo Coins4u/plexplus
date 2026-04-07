@@ -11,7 +11,7 @@ export type SellAppTier = {
 export const SELLAPP_TIERS: SellAppTier[] = [
   {
     tierName: "1 Month",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/901e29dffbb68-0000011081894",
+    checkoutLink: "https://datadraft.mysellauth.com/product/starter-pack",
     durationLabel: "1 Month",
     priceLabel: "€14.32",
     packageDetails: [
@@ -25,7 +25,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "3 Months",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/7678ac16efaa2-0000011081908",
+    checkoutLink: "https://datadraft.mysellauth.com/product/elite-vault",
     durationLabel: "3 Months",
     priceLabel: "€25.86",
     packageDetails: [
@@ -39,7 +39,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "6 Months",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/0f106d2836390-0000011081927",
+    checkoutLink: "https://datadraft.mysellauth.com/product/business-suite",
     durationLabel: "6 Months",
     priceLabel: "€37.31",
     packageDetails: [
@@ -53,7 +53,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "12 Months",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/169882f5fee94-0000011081947",
+    checkoutLink: "https://datadraft.mysellauth.com/product/enterprise-ledger",
     durationLabel: "12 Months",
     priceLabel: "€49.12",
     packageDetails: [
@@ -67,7 +67,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "1 Month Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/e9c58afbe7b1d-0000011081955",
+    checkoutLink: "https://datadraft.mysellauth.com/product/pro-dashboard-access",
     durationLabel: "1 Month Premium",
     priceLabel: "€24.89",
     packageDetails: [
@@ -81,7 +81,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "3 Months Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/eb8edc545c436-0000011081963",
+    checkoutLink: "https://datadraft.mysellauth.com/product/growth-bundle",
     durationLabel: "3 Months Premium",
     priceLabel: "€36.49",
     packageDetails: [
@@ -95,7 +95,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "6 Months Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/91f09f9f835ee-0000011081974",
+    checkoutLink: "https://datadraft.mysellauth.com/product/premium-toolkit",
     durationLabel: "6 Months Premium",
     priceLabel: "€46.65",
     packageDetails: [
@@ -109,7 +109,7 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "12 Months Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/checkout/3e348853d0030-0000011082013",
+    checkoutLink: "https://datadraft.mysellauth.com/product/ultimate-data-infrastructure",
     durationLabel: "12 Months Premium",
     priceLabel: "€69.09",
     packageDetails: [
