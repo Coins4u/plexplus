@@ -370,10 +370,10 @@ export default function DeHomePage() {
             </div>
             <div id="standard-plans" className="pricing-container active">
               {[
-                ["1 Monat", "€14.32", "/Monat"],
-                ["3 Monate", "€25.86", "/3 Mon", true, "Bester Wert"],
-                ["6 Monate", "€37.31", "/3 Mon"],
-                ["12 Monate", "€49.12", "/Jahr"],
+                ["1 Monat", "€12.67", "/Monat"],
+                ["3 Monate", "€24.49", "/3 Mon", true, "Bester Wert"],
+                ["6 Monate", "€34.78", "/3 Mon"],
+                ["12 Monate", "€48.56", "/Jahr"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}
@@ -401,10 +401,10 @@ export default function DeHomePage() {
             </div>
             <div id="premium-plans" className="pricing-container">
               {[
-                ["1 Monat Premium", "€24.89", "/Monat"],
-                ["3 Monate Premium", "€36.49", "/3 Mon", true, "Top Auswahl"],
-                ["6 Monate Premium", "€46.65", "/6 Mon"],
-                ["12 Monate Premium", "€69.09", "/Jahr"],
+                ["1 Monat Premium", "€23.45", "/Monat"],
+                ["3 Monate Premium", "€34.53", "/3 Mon", true, "Top Auswahl"],
+                ["6 Monate Premium", "€44.79", "/6 Mon"],
+                ["12 Monate Premium", "€65.48", "/Jahr"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}

@@ -369,10 +369,10 @@ export default function FrHomePage() {
             </div>
             <div id="standard-plans" className="pricing-container active">
               {[
-                ["1 Mois", "€14.32", "/Mois"],
-                ["3 Mois", "€25.86", "/3 Mois", true, "Meilleure Valeur"],
-                ["6 Mois", "€37.31", "/6 Mois"],
-                ["12 Mois", "€49.12", "/An"],
+                ["1 Mois", "€12.67", "/Mois"],
+                ["3 Mois", "€24.49", "/3 Mois", true, "Meilleure Valeur"],
+                ["6 Mois", "€34.78", "/6 Mois"],
+                ["12 Mois", "€48.56", "/An"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}
@@ -400,10 +400,10 @@ export default function FrHomePage() {
             </div>
             <div id="premium-plans" className="pricing-container">
               {[
-                ["1 Mois Premium", "€24.89", "/Mois"],
-                ["3 Mois Premium", "€36.49", "/3 Mois", true, "Top Choix"],
-                ["6 Mois Premium", "€46.65", "/6 Mois"],
-                ["12 Mois Premium", "€69.09", "/An"],
+                ["1 Mois Premium", "€23.45", "/Mois"],
+                ["3 Mois Premium", "€34.53", "/3 Mois", true, "Top Choix"],
+                ["6 Mois Premium", "€44.79", "/6 Mois"],
+                ["12 Mois Premium", "€65.48", "/An"],
               ].map(([name, price, suffix, popular, badge]) => (
                 <div key={name as string} className={`pricing-card ${popular ? "popular" : ""}`}>
                   {badge && <div className="popular-badge">{badge}</div>}

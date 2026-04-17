@@ -11,9 +11,10 @@ export type SellAppTier = {
 export const SELLAPP_TIERS: SellAppTier[] = [
   {
     tierName: "1 Month",
-    checkoutLink: "https://datadraft.mysellauth.com/product/starter-pack",
+    checkoutLink:
+      "https://www.g2g.com/categories/dino-iptv-accounts/offer/G1776372621329DB?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "1 Month",
-    priceLabel: "€14.32",
+    priceLabel: "€12.67",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -25,9 +26,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "3 Months",
-    checkoutLink: "https://datadraft.mysellauth.com/product/elite-vault",
+    checkoutLink:
+      "https://www.g2g.com/categories/dino-iptv-accounts/offer/G1776373094864TY?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "3 Months",
-    priceLabel: "€25.86",
+    priceLabel: "€24.49",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -39,9 +41,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "6 Months",
-    checkoutLink: "https://datadraft.mysellauth.com/product/business-suite",
+    checkoutLink:
+      "https://www.g2g.com/categories/dino-iptv-accounts/offer/G1776373189873NX?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "6 Months",
-    priceLabel: "€37.31",
+    priceLabel: "€34.78",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -53,9 +56,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "12 Months",
-    checkoutLink: "https://datadraft.mysellauth.com/product/enterprise-ledger",
+    checkoutLink:
+      "https://www.g2g.com/categories/dino-iptv-accounts/offer/G1776373353554KK?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "12 Months",
-    priceLabel: "€49.12",
+    priceLabel: "€48.56",
     packageDetails: [
       "20K+ HD Channels",
       "120K+ Movies & Series",
@@ -67,9 +71,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "1 Month Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/product/pro-dashboard-access",
+    checkoutLink:
+      "https://www.g2g.com/categories/strng-iptv-8k-accounts/offer/G1776375783323NE?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "1 Month Premium",
-    priceLabel: "€24.89",
+    priceLabel: "€23.45",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
@@ -81,9 +86,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "3 Months Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/product/growth-bundle",
+    checkoutLink:
+      "https://www.g2g.com/categories/strng-iptv-8k-accounts/offer/G1776375847461GR?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "3 Months Premium",
-    priceLabel: "€36.49",
+    priceLabel: "€34.53",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
@@ -95,9 +101,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "6 Months Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/product/premium-toolkit",
+    checkoutLink:
+      "https://www.g2g.com/categories/strng-iptv-8k-accounts/offer/G1776375951058WM?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "6 Months Premium",
-    priceLabel: "€46.65",
+    priceLabel: "€44.79",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
@@ -109,9 +116,10 @@ export const SELLAPP_TIERS: SellAppTier[] = [
   },
   {
     tierName: "12 Months Premium",
-    checkoutLink: "https://datadraft.mysellauth.com/product/ultimate-data-infrastructure",
+    checkoutLink:
+      "https://www.g2g.com/categories/strng-iptv-8k-accounts/offer/G1776376044008XN?region_id=0f76ac42-3267-4d77-9fba-f9d9d719dac9&seller=ayoubes",
     durationLabel: "12 Months Premium",
-    priceLabel: "€69.09",
+    priceLabel: "€65.48",
     packageDetails: [
       "Premium Anti-Buffer Server",
       "47K+ 4K/UHD Channels",
