@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { SetLang } from "./components/SetLang";
 import ThirdPartyScripts from "./components/ThirdPartyScripts";
-import "./globals.css";
+import "./plexplus-style.css";
 
 const outfit = Outfit({
   subsets: ["latin"],
