@@ -1,45 +1,52 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { getTierByIndex } from "@/app/config/sellappLinks";
+import {
+  PAYMENT_METHOD_LABELS,
+  SelectablePaymentMethod,
+  buildPaymentPageUrl,
+  isSelectablePaymentMethod,
+} from "@/app/config/paymentMethods";
+import {
+  formatEuro,
+  getDiscountedPrice,
+  getTierByIndex,
+} from "@/app/config/sellappLinks";
 
 type OrderPayload = {
   fullName?: string;
   email?: string;
   country?: string;
+  paymentMethod?: string;
   tierName?: string;
   tierIndex?: number;
 };
 
-type BuyerLocale = "en" | "fr" | "nl" | "de" | "it" | "pt";
+type BuyerLocale = "en" | "fr" | "nl" | "de" | "it" | "pt" | "no";
 
 type BuyerEmailCopy = {
   headerTitle: string;
   headerSubtitlePrefix: string;
   greeting: string;
+  /** Use {plan} placeholder for the selected plan name. */
   intro: string;
   selectedPackageLabel: string;
   durationFieldLabel: string;
-  priceFieldLabel: string;
   packageDetailsLabel: string;
-  paymentInstructionsTitle: string;
-  section1Title: string;
-  buttonLabel: string;
-  section2Title: string;
-  step1: string;
-  step2: string;
-  step3: string;
-  section3Title: string;
-  instantTitle: string;
-  instantBody: string;
-  communicationTitle: string;
-  communicationBody: string;
+  paymentMethodLabel: string;
+  listedPriceLabel: string;
+  discountPriceLabel: string;
+  paymentOptionsTitle: string;
+  discountOffer: string;
+  paymentDetailsIntroBank: string;
+  paymentDetailsIntroCrypto: string;
+  bankButtonLabel: string;
+  cryptoButtonLabel: string;
+  deliveryNote: string;
   supportTitle: string;
   supportBody: string;
-  importantNote: string;
   closing: string;
   supportTeam: string;
   subjectPrefix: string;
-  paymentSecureLine: string;
 };
 
 const localeByCountry: Record<string, BuyerLocale> = {
@@ -57,212 +64,219 @@ const localeByCountry: Record<string, BuyerLocale> = {
   "san marino": "it",
   portugal: "pt",
   brazil: "pt",
+  norway: "no",
 };
 
 const buyerEmailCopyByLocale: Record<BuyerLocale, BuyerEmailCopy> = {
   en: {
-    headerTitle: "Secure Checkout",
-    headerSubtitlePrefix: "Complete your order for",
+    headerTitle: "Order Received",
+    headerSubtitlePrefix: "Thank you for your order for",
     greeting: "Hello",
     intro:
-      "Thank you for your request. Please follow the payment instructions below to complete your order safely and quickly.",
+      "Thank you for submitting your order for {plan}. You selected your preferred payment method below and receive 15% off.",
     selectedPackageLabel: "Selected Package",
     durationFieldLabel: "Duration",
-    priceFieldLabel: "Price",
     packageDetailsLabel: "Package Details",
-    paymentInstructionsTitle: "Payment Instructions",
-    section1Title: "1. The Secure Checkout Link:",
-    buttonLabel: "Complete Secure Payment via G2G Escrow",
-    section2Title: "2. Step-by-Step Payment Guide",
-    step1: "Click the secure link above to visit our official product listing on G2G.",
-    step2: "Sign in (Social login like Google/Discord is recommended for speed).",
-    step3: "Complete your purchase using your preferred method (PayPal/Apple Pay/Google Pay/Credit Card).",
-    section3Title: "3. Critical Delivery & Security Notes ",
-    instantTitle: "Instant Multi-Channel Delivery",
-    instantBody:
-      "Your private credentials will be sent automatically to your registered email address and your G2G Order Chat immediately after payment is verified.",
-    communicationTitle: "Communication Protocol",
-    communicationBody:
-      "G2G is our primary secure payment and escrow partner. To ensure your account warranty remains valid, please do not mention this website or external URLs in the G2G chat.",
-    supportTitle: "Technical Support",
+    paymentMethodLabel: "Payment Method",
+    listedPriceLabel: "Listed price",
+    discountPriceLabel: "Final price with 15% off",
+    paymentOptionsTitle: "Your Payment Details",
+    discountOffer:
+      "Because you chose bank transfer or cryptocurrency, you receive a 15% discount. Your prices are shown below.",
+    paymentDetailsIntroBank:
+      "Click the button below to view our bank transfer details and complete your payment.",
+    paymentDetailsIntroCrypto:
+      "Click the button below to view our cryptocurrency payment details and complete your payment.",
+    bankButtonLabel: "View Bank Transfer Details",
+    cryptoButtonLabel: "View Cryptocurrency Details",
+    deliveryNote:
+      "As soon as we receive your payment, we will provide your account immediately.",
+    supportTitle: "Support",
     supportBody:
-      "For all technical assistance or configuration help, please reply directly to this email. Our engineering team handles all support off-platform to maintain your privacy.",
-    importantNote:
-      "Important: After completing payment, also check your Spam or Promotions folder in case your delivery message is filtered.",
+      "If you have any questions, simply reply to this email — we are happy to help.",
     closing: "Best regards,",
     supportTeam: "Support Team",
-    subjectPrefix: "Secure Checkout: Complete your order for",
-    paymentSecureLine: "Payment is completed securely via G2G Escrow.",
+    subjectPrefix: "Your order for",
   },
   fr: {
-    headerTitle: "Paiement Securise",
-    headerSubtitlePrefix: "Finalisez votre commande pour",
+    headerTitle: "Commande recue",
+    headerSubtitlePrefix: "Merci pour votre commande",
     greeting: "Bonjour",
     intro:
-      "Merci pour votre demande. Veuillez suivre les instructions de paiement ci-dessous pour finaliser votre commande en toute securite.",
+      "Merci d'avoir soumis votre commande pour {plan}. Vous avez choisi votre methode de paiement ci-dessous et beneficiez de 15 % de reduction.",
     selectedPackageLabel: "Offre selectionnee",
     durationFieldLabel: "Duree",
-    priceFieldLabel: "Prix",
     packageDetailsLabel: "Details de l'offre",
-    paymentInstructionsTitle: "Instructions de Paiement",
-    section1Title: "1. Lien de paiement securise :",
-    buttonLabel: "Completer le paiement securise via G2G Escrow",
-    section2Title: "2. Guide de paiement etape par etape",
-    step1: "Cliquez sur le lien securise ci-dessus pour visiter notre annonce officielle sur G2G.",
-    step2: "Connectez-vous (la connexion sociale Google/Discord est recommandee pour aller plus vite).",
-    step3: "Finalisez votre achat avec votre methode preferee (PayPal/Apple Pay/Google Pay/Carte bancaire).",
-    section3Title: "3. Notes critiques de livraison et securite ",
-    instantTitle: "Livraison instantanee multi-canal",
-    instantBody:
-      "Vos identifiants prives seront envoyes automatiquement a votre adresse email enregistree ET dans votre chat de commande G2G des verification du paiement.",
-    communicationTitle: "Protocole de communication",
-    communicationBody:
-      "G2G est notre partenaire principal pour le paiement securise et l'escrow. Pour conserver la validite de votre garantie, veuillez ne pas mentionner ce site web ni des URL externes dans le chat G2G.",
-    supportTitle: "Support technique",
+    paymentMethodLabel: "Methode de paiement",
+    listedPriceLabel: "Prix affiche",
+    discountPriceLabel: "Prix final avec 15 % de reduction",
+    paymentOptionsTitle: "Vos details de paiement",
+    discountOffer:
+      "Parce que vous avez choisi le virement bancaire ou la cryptomonnaie, vous beneficiez de 15 % de reduction. Les prix sont indiques ci-dessous.",
+    paymentDetailsIntroBank:
+      "Cliquez sur le bouton ci-dessous pour voir nos coordonnees bancaires et finaliser votre paiement.",
+    paymentDetailsIntroCrypto:
+      "Cliquez sur le bouton ci-dessous pour voir nos details de paiement en cryptomonnaie et finaliser votre paiement.",
+    bankButtonLabel: "Voir les details du virement",
+    cryptoButtonLabel: "Voir les details crypto",
+    deliveryNote:
+      "Des reception de votre paiement, nous vous fournirons votre compte immediatement.",
+    supportTitle: "Support",
     supportBody:
-      "Pour toute assistance technique ou aide a la configuration, repondez directement a cet email. Notre equipe d'ingenierie gere tout le support hors plateforme pour proteger votre confidentialite.",
-    importantNote:
-      "Important : apres le paiement, verifiez aussi vos dossiers Spam ou Promotions si le message de livraison est filtre.",
+      "Pour toute question, repondez simplement a cet e-mail — nous sommes a votre disposition.",
     closing: "Cordialement,",
     supportTeam: "Equipe Support",
-    subjectPrefix: "Paiement securise : finalisez votre commande pour",
-    paymentSecureLine: "Le paiement est traite en toute securite via G2G Escrow.",
+    subjectPrefix: "Votre commande pour",
   },
   nl: {
-    headerTitle: "Veilige Betaling",
-    headerSubtitlePrefix: "Rond je bestelling af voor",
+    headerTitle: "Bestelling ontvangen",
+    headerSubtitlePrefix: "Bedankt voor je bestelling voor",
     greeting: "Hallo",
     intro:
-      "Bedankt voor je aanvraag. Volg de betaalinstructies hieronder om je bestelling veilig en snel af te ronden.",
+      "Bedankt voor het indienen van je bestelling voor {plan}. Je hebt hieronder je betaalmethode gekozen en ontvangt 15% korting.",
     selectedPackageLabel: "Geselecteerd pakket",
     durationFieldLabel: "Duur",
-    priceFieldLabel: "Prijs",
     packageDetailsLabel: "Pakketdetails",
-    paymentInstructionsTitle: "Betaalinstructies",
-    section1Title: "1. De veilige checkout-link:",
-    buttonLabel: "Voltooi veilige betaling via G2G Escrow",
-    section2Title: "2. Stap-voor-stap betaalgids",
-    step1: "Klik op de veilige link hierboven om onze officiele productlisting op G2G te openen.",
-    step2: "Log in (sociale login zoals Google/Discord wordt aanbevolen voor snelheid).",
-    step3: "Voltooi je aankoop met je gewenste methode (PayPal/Apple Pay/Google Pay/Creditcard).",
-    section3Title: "3. Kritieke leverings- en veiligheidsnotities",
-    instantTitle: "Directe levering via meerdere kanalen",
-    instantBody:
-      "Je privegegevens worden direct na betaalverificatie automatisch gestuurd naar je geregistreerde e-mailadres EN je G2G Order Chat.",
-    communicationTitle: "Communicatieprotocol",
-    communicationBody:
-      "G2G is onze primaire partner voor veilige betalingen en escrow. Om je accountgarantie geldig te houden, noem deze website of externe URL's niet in de G2G-chat.",
-    supportTitle: "Technische ondersteuning",
+    paymentMethodLabel: "Betaalmethode",
+    listedPriceLabel: "Vermelde prijs",
+    discountPriceLabel: "Eindprijs met 15% korting",
+    paymentOptionsTitle: "Jouw betaalgegevens",
+    discountOffer:
+      "Omdat je bankoverschrijving of cryptocurrency hebt gekozen, krijg je 15% korting. Je prijzen staan hieronder.",
+    paymentDetailsIntroBank:
+      "Klik op de knop hieronder om onze bankgegevens te bekijken en je betaling af te ronden.",
+    paymentDetailsIntroCrypto:
+      "Klik op de knop hieronder om onze cryptobetalingsgegevens te bekijken en je betaling af te ronden.",
+    bankButtonLabel: "Bekijk bankgegevens",
+    cryptoButtonLabel: "Bekijk cryptogegevens",
+    deliveryNote:
+      "Zodra we je betaling hebben ontvangen, leveren we je account meteen.",
+    supportTitle: "Support",
     supportBody:
-      "Voor technische hulp of configuratiehulp kun je direct op deze e-mail reageren. Ons engineeringteam behandelt alle support buiten het platform om je privacy te behouden.",
-    importantNote:
-      "Belangrijk: controleer na betaling ook je Spam- of Promoties-map als het leveringsbericht is gefilterd.",
+      "Heb je vragen? Antwoord gewoon op deze e-mail — we helpen je graag.",
     closing: "Met vriendelijke groet,",
     supportTeam: "Support Team",
-    subjectPrefix: "Veilige betaling: rond je bestelling af voor",
-    paymentSecureLine: "Betaling wordt veilig verwerkt via G2G Escrow.",
+    subjectPrefix: "Je bestelling voor",
   },
   de: {
-    headerTitle: "Sicherer Checkout",
-    headerSubtitlePrefix: "Schliessen Sie Ihre Bestellung ab fur",
+    headerTitle: "Bestellung erhalten",
+    headerSubtitlePrefix: "Vielen Dank fur Ihre Bestellung fur",
     greeting: "Hallo",
     intro:
-      "Vielen Dank fur Ihre Anfrage. Bitte folgen Sie den untenstehenden Zahlungsanweisungen, um Ihre Bestellung sicher und schnell abzuschliessen.",
+      "Vielen Dank fur Ihre Bestellung fur {plan}. Sie haben unten Ihre bevorzugte Zahlungsmethode gewahlt und erhalten 15 % Rabatt.",
     selectedPackageLabel: "Ausgewaehltes Paket",
     durationFieldLabel: "Laufzeit",
-    priceFieldLabel: "Preis",
     packageDetailsLabel: "Paketdetails",
-    paymentInstructionsTitle: "Zahlungsanweisungen",
-    section1Title: "1. Der sichere Checkout-Link:",
-    buttonLabel: "Sichere Zahlung uber G2G Escrow abschliessen",
-    section2Title: "2. Schritt-fur-Schritt Zahlungsanleitung",
-    step1: "Klicken Sie auf den sicheren Link oben, um unser offizielles Produktangebot auf G2G zu besuchen.",
-    step2: "Melden Sie sich an (Social Login wie Google/Discord wird fur mehr Geschwindigkeit empfohlen).",
-    step3: "Schliessen Sie den Kauf mit Ihrer bevorzugten Methode ab (PayPal/Apple Pay/Google Pay/Kreditkarte).",
-    section3Title: "3. Wichtige Liefer- und Sicherheitshinweise ",
-    instantTitle: "Sofortige Mehrkanal-Lieferung",
-    instantBody:
-      "Ihre privaten Zugangsdaten werden unmittelbar nach Zahlungsbestaetigung automatisch an Ihre registrierte E-Mail-Adresse UND in Ihren G2G Order Chat gesendet.",
-    communicationTitle: "Kommunikationsprotokoll",
-    communicationBody:
-      "G2G ist unser primarer Partner fur sichere Zahlungen und Escrow. Damit Ihre Kontogarantie gueltig bleibt, nennen Sie bitte diese Website oder externe URLs nicht im G2G-Chat.",
-    supportTitle: "Technischer Support",
+    paymentMethodLabel: "Zahlungsmethode",
+    listedPriceLabel: "Listenpreis",
+    discountPriceLabel: "Endpreis mit 15 % Rabatt",
+    paymentOptionsTitle: "Ihre Zahlungsdetails",
+    discountOffer:
+      "Weil Sie Bankuberweisung oder Kryptowahrung gewahlt haben, erhalten Sie 15 % Rabatt. Die Preise stehen unten.",
+    paymentDetailsIntroBank:
+      "Klicken Sie auf die Schaltflache unten, um unsere Bankdaten zu sehen und Ihre Zahlung abzuschliessen.",
+    paymentDetailsIntroCrypto:
+      "Klicken Sie auf die Schaltflache unten, um unsere Krypto-Zahlungsdetails zu sehen und Ihre Zahlung abzuschliessen.",
+    bankButtonLabel: "Bankdaten anzeigen",
+    cryptoButtonLabel: "Krypto-Details anzeigen",
+    deliveryNote:
+      "Sobald wir Ihre Zahlung erhalten haben, stellen wir Ihr Konto sofort bereit.",
+    supportTitle: "Support",
     supportBody:
-      "Fur technische Hilfe oder Konfigurationsunterstuetzung antworten Sie bitte direkt auf diese E-Mail. Unser Engineering-Team bearbeitet den Support bewusst ausserhalb der Plattform, um Ihre Privatsphaere zu schuetzen.",
-    importantNote:
-      "Wichtig: Prufen Sie nach der Zahlung auch Ihren Spam- oder Promotions-Ordner, falls die Liefernachricht gefiltert wurde.",
+      "Bei Fragen antworten Sie einfach auf diese E-Mail — wir helfen Ihnen gerne.",
     closing: "Beste Gruesse,",
     supportTeam: "Support Team",
-    subjectPrefix: "Sicherer Checkout: Schliessen Sie Ihre Bestellung ab fur",
-    paymentSecureLine: "Die Zahlung wird sicher uber G2G Escrow abgewickelt.",
+    subjectPrefix: "Ihre Bestellung fur",
   },
   it: {
-    headerTitle: "Checkout Sicuro",
-    headerSubtitlePrefix: "Completa il tuo ordine per",
+    headerTitle: "Ordine ricevuto",
+    headerSubtitlePrefix: "Grazie per il tuo ordine per",
     greeting: "Ciao",
     intro:
-      "Grazie per la tua richiesta. Segui le istruzioni di pagamento qui sotto per completare il tuo ordine in modo sicuro e veloce.",
+      "Grazie per aver inviato l'ordine per {plan}. Hai selezionato il metodo di pagamento qui sotto e ricevi il 15% di sconto.",
     selectedPackageLabel: "Pacchetto selezionato",
     durationFieldLabel: "Durata",
-    priceFieldLabel: "Prezzo",
     packageDetailsLabel: "Dettagli pacchetto",
-    paymentInstructionsTitle: "Istruzioni di Pagamento",
-    section1Title: "1. Il link di checkout sicuro:",
-    buttonLabel: "Completa pagamento sicuro tramite G2G Escrow",
-    section2Title: "2. Guida pagamento passo dopo passo",
-    step1: "Clicca sul link sicuro qui sopra per visitare la nostra inserzione ufficiale su G2G.",
-    step2: "Accedi (login social come Google/Discord consigliato per velocita).",
-    step3: "Completa l'acquisto con il metodo che preferisci (PayPal/Apple Pay/Google Pay/Carta di credito).",
-    section3Title: "3. Note critiche su consegna e sicurezza ",
-    instantTitle: "Consegna istantanea multi-canale",
-    instantBody:
-      "Le tue credenziali private verranno inviate automaticamente al tuo indirizzo email registrato E alla tua chat ordine G2G subito dopo la verifica del pagamento.",
-    communicationTitle: "Protocollo di comunicazione",
-    communicationBody:
-      "G2G e il nostro partner principale per pagamenti sicuri ed escrow. Per mantenere valida la garanzia del tuo account, non menzionare questo sito o URL esterni nella chat G2G.",
-    supportTitle: "Supporto tecnico",
+    paymentMethodLabel: "Metodo di pagamento",
+    listedPriceLabel: "Prezzo elencato",
+    discountPriceLabel: "Prezzo finale con 15% di sconto",
+    paymentOptionsTitle: "I tuoi dettagli di pagamento",
+    discountOffer:
+      "Poiche hai scelto bonifico bancario o criptovaluta, ricevi uno sconto del 15%. I prezzi sono mostrati sotto.",
+    paymentDetailsIntroBank:
+      "Clicca sul pulsante qui sotto per vedere i dettagli del bonifico e completare il pagamento.",
+    paymentDetailsIntroCrypto:
+      "Clicca sul pulsante qui sotto per vedere i dettagli di pagamento in criptovaluta e completare il pagamento.",
+    bankButtonLabel: "Vedi dettagli bonifico",
+    cryptoButtonLabel: "Vedi dettagli crypto",
+    deliveryNote:
+      "Non appena riceveremo il pagamento, forniremo immediatamente il tuo account.",
+    supportTitle: "Supporto",
     supportBody:
-      "Per assistenza tecnica o aiuto di configurazione, rispondi direttamente a questa email. Il nostro team di ingegneria gestisce tutto il supporto fuori piattaforma per tutelare la tua privacy.",
-    importantNote:
-      "Importante: dopo il pagamento, controlla anche la cartella Spam o Promozioni nel caso in cui il messaggio di consegna venga filtrato.",
+      "Per qualsiasi domanda, rispondi semplicemente a questa email — siamo lieti di aiutarti.",
     closing: "Cordiali saluti,",
     supportTeam: "Team Supporto",
-    subjectPrefix: "Pagamento sicuro: completa il tuo ordine per",
-    paymentSecureLine: "Il pagamento viene gestito in sicurezza tramite G2G Escrow.",
+    subjectPrefix: "Il tuo ordine per",
   },
   pt: {
-    headerTitle: "Checkout Seguro",
-    headerSubtitlePrefix: "Conclua o seu pedido para",
+    headerTitle: "Pedido recebido",
+    headerSubtitlePrefix: "Obrigado pelo seu pedido de",
     greeting: "Ola",
     intro:
-      "Obrigado pelo seu pedido. Siga as instrucoes de pagamento abaixo para concluir a sua compra com seguranca e rapidez.",
+      "Obrigado por submeter o seu pedido para {plan}. Selecionou o metodo de pagamento abaixo e recebe 15% de desconto.",
     selectedPackageLabel: "Pacote selecionado",
     durationFieldLabel: "Duracao",
-    priceFieldLabel: "Preco",
     packageDetailsLabel: "Detalhes do pacote",
-    paymentInstructionsTitle: "Instrucoes de Pagamento",
-    section1Title: "1. O link de checkout seguro:",
-    buttonLabel: "Concluir pagamento seguro via G2G Escrow",
-    section2Title: "2. Guia de pagamento passo a passo",
-    step1: "Clique no link seguro acima para visitar o nosso anuncio oficial no G2G.",
-    step2: "Inicie sessao (login social como Google/Discord e recomendado para rapidez).",
-    step3: "Conclua a compra com o seu metodo preferido (PayPal/Apple Pay/Google Pay/Cartao de credito).",
-    section3Title: "3. Notas criticas de entrega e seguranca ",
-    instantTitle: "Entrega instantanea em multiplos canais",
-    instantBody:
-      "As suas credenciais privadas serao enviadas automaticamente para o seu email registado E para o seu chat de encomenda no G2G imediatamente apos a verificacao do pagamento.",
-    communicationTitle: "Protocolo de comunicacao",
-    communicationBody:
-      "O G2G e o nosso parceiro principal de pagamento seguro e escrow. Para manter a garantia da sua conta valida, nao mencione este website nem URLs externas no chat do G2G.",
-    supportTitle: "Suporte tecnico",
+    paymentMethodLabel: "Metodo de pagamento",
+    listedPriceLabel: "Preco indicado",
+    discountPriceLabel: "Preco final com 15% de desconto",
+    paymentOptionsTitle: "Os seus detalhes de pagamento",
+    discountOffer:
+      "Como escolheu transferencia bancaria ou criptomoeda, recebe 15% de desconto. Os precos estao abaixo.",
+    paymentDetailsIntroBank:
+      "Clique no botao abaixo para ver os detalhes da transferencia bancaria e concluir o pagamento.",
+    paymentDetailsIntroCrypto:
+      "Clique no botao abaixo para ver os detalhes de pagamento em criptomoeda e concluir o pagamento.",
+    bankButtonLabel: "Ver detalhes da transferencia",
+    cryptoButtonLabel: "Ver detalhes de crypto",
+    deliveryNote:
+      "Assim que recebermos o pagamento, fornecemos a sua conta imediatamente.",
+    supportTitle: "Suporte",
     supportBody:
-      "Para assistencia tecnica ou ajuda de configuracao, responda diretamente a este email. A nossa equipa de engenharia trata todo o suporte fora da plataforma para proteger a sua privacidade.",
-    importantNote:
-      "Importante: apos concluir o pagamento, verifique tambem as pastas Spam ou Promocoes caso a mensagem de entrega seja filtrada.",
+      "Se tiver alguma duvida, responda simplesmente a este e-mail — teremos todo o gosto em ajudar.",
     closing: "Cumprimentos,",
     supportTeam: "Equipa de Suporte",
-    subjectPrefix: "Pagamento seguro: conclua o seu pedido para",
-    paymentSecureLine: "O pagamento e processado com seguranca via G2G Escrow.",
+    subjectPrefix: "O seu pedido para",
+  },
+  no: {
+    headerTitle: "Bestilling mottatt",
+    headerSubtitlePrefix: "Takk for bestillingen din for",
+    greeting: "Hei",
+    intro:
+      "Takk for at du sendte inn bestillingen for {plan}. Du har valgt betalingsmetode nedenfor og far 15 % rabatt.",
+    selectedPackageLabel: "Valgt pakke",
+    durationFieldLabel: "Varighet",
+    packageDetailsLabel: "Pakkedetaljer",
+    paymentMethodLabel: "Betalingsmetode",
+    listedPriceLabel: "Oppfort pris",
+    discountPriceLabel: "Endelig pris med 15 % rabatt",
+    paymentOptionsTitle: "Dine betalingsdetaljer",
+    discountOffer:
+      "Fordi du valgte bankoverforing eller kryptovaluta, far du 15 % rabatt. Prisene vises nedenfor.",
+    paymentDetailsIntroBank:
+      "Klikk pa knappen nedenfor for a se bankdetaljene vare og fullfore betalingen.",
+    paymentDetailsIntroCrypto:
+      "Klikk pa knappen nedenfor for a se kryptobetalingsdetaljene vare og fullfore betalingen.",
+    bankButtonLabel: "Se bankdetaljer",
+    cryptoButtonLabel: "Se kryptodetaljer",
+    deliveryNote:
+      "Sa snart vi har mottatt betalingen, leverer vi kontoen din umiddelbart.",
+    supportTitle: "Support",
+    supportBody:
+      "Har du sporsmal? Svar bare pa denne e-posten — vi hjelper deg gjerne.",
+    closing: "Med vennlig hilsen,",
+    supportTeam: "Support Team",
+    subjectPrefix: "Din bestilling for",
   },
 };
 
@@ -271,13 +285,44 @@ function getBuyerLocaleFromCountry(country: string): BuyerLocale {
   return localeByCountry[normalizedCountry] || "en";
 }
 
+function withPlan(template: string, plan: string) {
+  return template.replace(/\{plan\}/g, plan);
+}
+
+function getPaymentCta(
+  paymentMethod: SelectablePaymentMethod,
+  copy: BuyerEmailCopy,
+  plan: string,
+  discountedAmount: number,
+) {
+  const url = buildPaymentPageUrl(paymentMethod, {
+    plan,
+    price: discountedAmount,
+  });
+
+  if (paymentMethod === "bank_transfer") {
+    return {
+      intro: copy.paymentDetailsIntroBank,
+      buttonLabel: copy.bankButtonLabel,
+      url,
+    };
+  }
+  return {
+    intro: copy.paymentDetailsIntroCrypto,
+    buttonLabel: copy.cryptoButtonLabel,
+    url,
+  };
+}
+
 function buildBuyerEmailHtml(
   fullName: string,
   tierName: string,
   durationLabel: string,
-  priceLabel: string,
+  listedPriceLabel: string,
+  discountedPriceLabel: string,
+  discountedAmount: number,
   packageDetails: string[],
-  checkoutLink: string,
+  paymentMethod: SelectablePaymentMethod,
   copy: BuyerEmailCopy,
 ) {
   const detailsHtml = packageDetails
@@ -286,6 +331,8 @@ function buildBuyerEmailHtml(
         `<li style="margin:0 0 6px;color:#374151;font-size:14px;line-height:1.5;">${item}</li>`,
     )
     .join("");
+  const paymentMethodLabel = PAYMENT_METHOD_LABELS[paymentMethod];
+  const cta = getPaymentCta(paymentMethod, copy, tierName, discountedAmount);
 
   return `
   <div style="font-family:Arial,sans-serif;background:#f6f7fb;padding:24px;">
@@ -297,12 +344,12 @@ function buildBuyerEmailHtml(
       <div style="padding:22px;color:#1f2937;line-height:1.6;">
         <p style="margin:0 0 12px;">${copy.greeting} <strong>${fullName}</strong>,</p>
         <p style="margin:0 0 14px;">
-          ${copy.intro}
+          ${withPlan(copy.intro, tierName)}
         </p>
         <div style="margin:0 0 14px;padding:14px;border-radius:12px;background:#f9fafb;border:1px solid #e5e7eb;">
           <p style="margin:0 0 6px;font-size:14px;"><strong>${copy.selectedPackageLabel}:</strong> ${tierName}</p>
           <p style="margin:0 0 6px;font-size:14px;"><strong>${copy.durationFieldLabel}:</strong> ${durationLabel}</p>
-          <p style="margin:0 0 10px;font-size:14px;"><strong>${copy.priceFieldLabel}:</strong> ${priceLabel}</p>
+          <p style="margin:0 0 10px;font-size:14px;"><strong>${copy.paymentMethodLabel}:</strong> ${paymentMethodLabel}</p>
           <p style="margin:0 0 8px;font-size:14px;"><strong>${copy.packageDetailsLabel}:</strong></p>
           <ul style="padding-left:18px;margin:0;">
             ${detailsHtml}
@@ -310,60 +357,83 @@ function buildBuyerEmailHtml(
         </div>
         <div style="margin:0 0 16px;padding:16px;border-radius:12px;background:#eef6ff;border:1px solid #bfdbfe;">
           <p style="margin:0 0 10px;color:#1e3a8a;font-size:15px;font-weight:700;">
-            ${copy.paymentInstructionsTitle}
+            ${copy.paymentOptionsTitle}
           </p>
-          <p style="margin:0 0 10px;color:#0f172a;font-size:14px;">
-            <strong>${copy.priceFieldLabel}:</strong>
-            <span style="display:inline-block;margin-left:6px;padding:4px 10px;border-radius:999px;background:#1d4ed8;color:#ffffff;font-weight:700;">
-              ${priceLabel}
+          <p style="margin:0 0 12px;color:#1f2937;font-size:14px;">
+            ${copy.discountOffer}
+          </p>
+          <p style="margin:0 0 8px;color:#0f172a;font-size:14px;">
+            <strong>${copy.listedPriceLabel}:</strong>
+            <span style="margin-left:6px;text-decoration:line-through;color:#6b7280;">${listedPriceLabel}</span>
+          </p>
+          <p style="margin:0 0 14px;color:#0f172a;font-size:14px;">
+            <strong>${copy.discountPriceLabel}:</strong>
+            <span style="display:inline-block;margin-left:6px;padding:4px 10px;border-radius:999px;background:#15803d;color:#ffffff;font-weight:700;">
+              ${discountedPriceLabel}
             </span>
           </p>
-          <p style="margin:0;color:#1f2937;font-size:14px;">
-            ${copy.section1Title}
+          <p style="margin:0 0 12px;color:#1f2937;font-size:14px;">
+            ${cta.intro}
           </p>
-          <p style="margin:14px 0 0;">
-            <a href="${checkoutLink}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#1d4ed8;color:#fff;text-decoration:none;font-weight:700;">
-              ${copy.buttonLabel}
+          <p style="margin:0;">
+            <a href="${cta.url}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#1d4ed8;color:#fff;text-decoration:none;font-weight:700;">
+              ${cta.buttonLabel}
             </a>
           </p>
         </div>
-        <div style="margin:0 0 16px;padding:16px;border-radius:12px;background:#f8f5ff;border:1px solid #ddd6fe;">
-          <p style="margin:0 0 10px;color:#5b21b6;font-size:15px;font-weight:700;">
-            ${copy.section2Title}
-          </p>
-          <ol style="margin:0;padding-left:18px;color:#1f2937;font-size:14px;line-height:1.7;">
-            <li style="margin:0 0 8px;">
-              ${copy.step1}
-            </li>
-            <li style="margin:0 0 8px;">
-              ${copy.step2}
-            </li>
-            <li style="margin:0;">
-              ${copy.step3}
-            </li>
-          </ol>
-        </div>
         <div style="margin:0 0 16px;padding:16px;border-radius:12px;background:#fff7ed;border:1px solid #fdba74;">
-          <p style="margin:0 0 10px;color:#9a3412;font-size:15px;font-weight:700;">
-            ${copy.section3Title}
-          </p>
-          <p style="margin:0 0 10px;color:#1f2937;font-size:14px;">
-            <strong>${copy.instantTitle}:</strong> ${copy.instantBody}
-          </p>
-          <p style="margin:0 0 10px;color:#1f2937;font-size:14px;">
-            <strong>${copy.communicationTitle}:</strong> ${copy.communicationBody}
-          </p>
           <p style="margin:0;color:#1f2937;font-size:14px;">
-            <strong>${copy.supportTitle}:</strong> ${copy.supportBody}
+            ${copy.deliveryNote}
           </p>
         </div>
-        <p style="margin:0 0 10px;color:#7c2d12;font-size:14px;background:#fff1f2;border:1px solid #fecdd3;padding:10px 12px;border-radius:10px;">
-          ${copy.importantNote}
+        <p style="margin:0 0 10px;color:#1f2937;font-size:14px;">
+          <strong>${copy.supportTitle}:</strong> ${copy.supportBody}
         </p>
         <p style="margin:16px 0 0;">${copy.closing}<br/>${copy.supportTeam}</p>
       </div>
     </div>
   </div>`;
+}
+
+function buildBuyerEmailText(
+  fullName: string,
+  tierName: string,
+  durationLabel: string,
+  listedPriceLabel: string,
+  discountedPriceLabel: string,
+  discountedAmount: number,
+  packageDetails: string[],
+  paymentMethod: SelectablePaymentMethod,
+  copy: BuyerEmailCopy,
+) {
+  const paymentMethodLabel = PAYMENT_METHOD_LABELS[paymentMethod];
+  const cta = getPaymentCta(paymentMethod, copy, tierName, discountedAmount);
+
+  return `${copy.greeting} ${fullName},
+
+${withPlan(copy.intro, tierName)}
+
+${copy.selectedPackageLabel}: ${tierName}
+${copy.durationFieldLabel}: ${durationLabel}
+${copy.paymentMethodLabel}: ${paymentMethodLabel}
+${copy.packageDetailsLabel}:
+${packageDetails.map((d) => `- ${d}`).join("\n")}
+
+${copy.paymentOptionsTitle}
+${copy.discountOffer}
+${copy.listedPriceLabel}: ${listedPriceLabel}
+${copy.discountPriceLabel}: ${discountedPriceLabel}
+
+${cta.intro}
+${cta.buttonLabel}:
+${cta.url}
+
+${copy.deliveryNote}
+
+${copy.supportTitle}: ${copy.supportBody}
+
+${copy.closing}
+${copy.supportTeam}`;
 }
 
 export async function POST(req: NextRequest) {
@@ -372,6 +442,7 @@ export async function POST(req: NextRequest) {
     const fullName = (body.fullName || "").trim();
     const email = (body.email || "").trim();
     const country = (body.country || "").trim();
+    const paymentMethodRaw = (body.paymentMethod || "").trim();
 
     if (!fullName || !email || !country) {
       return NextResponse.json(
@@ -380,20 +451,31 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const tierFromIndex =
-      typeof body.tierIndex === "number" ? getTierByIndex(body.tierIndex) : undefined;
-    const tierName = body.tierName?.trim() || tierFromIndex?.tierName || "Selected Tier";
-    const checkoutLink = tierFromIndex?.checkoutLink || "";
-    const durationLabel = tierFromIndex?.durationLabel || tierName;
-    const priceLabel = tierFromIndex?.priceLabel || "Check secure checkout";
-    const packageDetails = tierFromIndex?.packageDetails || [];
-
-    if (!checkoutLink) {
+    if (!isSelectablePaymentMethod(paymentMethodRaw)) {
       return NextResponse.json(
-        { message: "Unable to resolve checkout link for selected tier." },
+        { message: "Please select Bank Transfer or Cryptocurrency." },
         { status: 400 },
       );
     }
+    const paymentMethod = paymentMethodRaw;
+
+    const tierFromIndex =
+      typeof body.tierIndex === "number" ? getTierByIndex(body.tierIndex) : undefined;
+    const tierName = body.tierName?.trim() || tierFromIndex?.tierName || "Selected Tier";
+    const durationLabel = tierFromIndex?.durationLabel || tierName;
+    const packageDetails = tierFromIndex?.packageDetails || [];
+    const listedAmount = tierFromIndex?.priceAmount;
+
+    if (typeof listedAmount !== "number") {
+      return NextResponse.json(
+        { message: "Unable to resolve price for selected plan." },
+        { status: 400 },
+      );
+    }
+
+    const discountedAmount = getDiscountedPrice(listedAmount);
+    const listedPriceLabel = formatEuro(listedAmount);
+    const discountedPriceLabel = formatEuro(discountedAmount);
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -417,41 +499,24 @@ export async function POST(req: NextRequest) {
 
     const buyerLocale = getBuyerLocaleFromCountry(country);
     const copy = buyerEmailCopyByLocale[buyerLocale];
+    const paymentMethodLabel = PAYMENT_METHOD_LABELS[paymentMethod];
+    const paymentPageUrl = buildPaymentPageUrl(paymentMethod, {
+      plan: tierName,
+      price: discountedAmount,
+    });
 
     const buyerSubject = `${copy.subjectPrefix} ${tierName}`;
-    const buyerText = `${copy.greeting} ${fullName},
-
-${copy.intro}
-
-${copy.paymentInstructionsTitle}
-${copy.section1Title}
-${copy.priceFieldLabel}: ${priceLabel}
-${copy.buttonLabel}
-${checkoutLink}
-
-${copy.section2Title}
-Step 1: ${copy.step1}
-Step 2: ${copy.step2}
-Step 3: ${copy.step3}
-
-${copy.section3Title}
-${copy.instantTitle}: ${copy.instantBody}
-${copy.communicationTitle}: ${copy.communicationBody}
-${copy.supportTitle}: ${copy.supportBody}
-
-${copy.importantNote}
-
-${copy.closing}
-${copy.supportTeam}`;
-    const buyerTextWithDetails = `${buyerText}
-
-${copy.selectedPackageLabel}: ${tierName}
-${copy.durationFieldLabel}: ${durationLabel}
-${copy.priceFieldLabel}: ${priceLabel}
-${copy.packageDetailsLabel}:
-${packageDetails.map((d) => `- ${d}`).join("\n")}
-
-${copy.paymentSecureLine}`;
+    const buyerText = buildBuyerEmailText(
+      fullName,
+      tierName,
+      durationLabel,
+      listedPriceLabel,
+      discountedPriceLabel,
+      discountedAmount,
+      packageDetails,
+      paymentMethod,
+      copy,
+    );
 
     const adminSubject = `NEW FORM FILLED: ${tierName} - ${fullName}`;
     const adminText = `A user has filled the order form.
@@ -459,21 +524,27 @@ Name: ${fullName}
 Email: ${email}
 Country: ${country}
 Tier Selected: ${tierName}
-Status: Secure link has been sent to the buyer.`;
+Payment Method: ${paymentMethodLabel}
+Listed price: ${listedPriceLabel}
+Discounted price (15% off): ${discountedPriceLabel}
+Payment page: ${paymentPageUrl}
+Status: Customer confirmation email sent with ${paymentMethodLabel} details link.`;
 
     await Promise.all([
       transporter.sendMail({
         from,
         to: email,
         subject: buyerSubject,
-        text: buyerTextWithDetails,
+        text: buyerText,
         html: buildBuyerEmailHtml(
           fullName,
           tierName,
           durationLabel,
-          priceLabel,
+          listedPriceLabel,
+          discountedPriceLabel,
+          discountedAmount,
           packageDetails,
-          checkoutLink,
+          paymentMethod,
           copy,
         ),
       }),
@@ -485,11 +556,17 @@ Status: Secure link has been sent to the buyer.`;
       }),
     ]);
 
-    return NextResponse.json({ message: "Secure link sent successfully." });
+    return NextResponse.json({
+      message: "Order follow-up sent successfully.",
+      listedPrice: listedPriceLabel,
+      discountedPrice: discountedPriceLabel,
+      tierName,
+      paymentMethod,
+    });
   } catch (error) {
     console.error("SMTP send-order-link error:", error);
     return NextResponse.json(
-      { message: "Failed to send secure payment link. Please try again." },
+      { message: "Failed to send order confirmation. Please try again." },
       { status: 500 },
     );
   }

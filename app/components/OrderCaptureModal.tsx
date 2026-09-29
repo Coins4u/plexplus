@@ -1,18 +1,26 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import {
+  PAYMENT_METHOD_LABELS,
+  PAYMENT_METHOD_OPTIONS,
+  SelectablePaymentMethod,
+  isSelectablePaymentMethod,
+} from "@/app/config/paymentMethods";
 import { getTierByIndex } from "@/app/config/sellappLinks";
 
 type FormState = {
   fullName: string;
   email: string;
   country: string;
+  paymentMethod: "" | SelectablePaymentMethod;
 };
 
 const initialForm: FormState = {
   fullName: "",
   email: "",
   country: "",
+  paymentMethod: "",
 };
 
 const COUNTRY_OPTIONS = [
@@ -83,6 +91,14 @@ const COUNTRY_OPTIONS = [
   "Other",
 ];
 
+type OrderApiResponse = {
+  message?: string;
+  listedPrice?: string;
+  discountedPrice?: string;
+  tierName?: string;
+  paymentMethod?: SelectablePaymentMethod;
+};
+
 export default function OrderCaptureModal() {
   const [open, setOpen] = useState(false);
   const [tierName, setTierName] = useState("");
@@ -130,6 +146,12 @@ export default function OrderCaptureModal() {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
+
+    if (!isSelectablePaymentMethod(form.paymentMethod)) {
+      setErrorMessage("Please select Bank Transfer or Cryptocurrency.");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -140,18 +162,31 @@ export default function OrderCaptureModal() {
           fullName: form.fullName,
           email: form.email,
           country: form.country,
+          paymentMethod: form.paymentMethod,
           tierName,
           tierIndex,
         }),
       });
 
-      const data = (await res.json()) as { message?: string };
+      const data = (await res.json()) as OrderApiResponse;
       if (!res.ok) {
         throw new Error(data.message || "Could not submit your request.");
       }
 
+      const planLabel = data.tierName || tierName;
+      const methodLabel =
+        PAYMENT_METHOD_LABELS[
+          data.paymentMethod && isSelectablePaymentMethod(data.paymentMethod)
+            ? data.paymentMethod
+            : form.paymentMethod
+        ];
+      const discounted = data.discountedPrice;
+      const priceSentence = discounted
+        ? ` Your final price with 15% off is ${discounted}.`
+        : "";
+
       setSuccessMessage(
-        `Thank you, ${form.fullName}. We have sent a secure payment link to ${form.email}. Please check your inbox (and spam folder) to finalize your purchase.`,
+        `Thank you, ${form.fullName}. We have emailed ${form.email} with your ${methodLabel} payment details for ${planLabel}.${priceSentence} Check your inbox (and spam folder) for the link to complete payment.`,
       );
       setForm(initialForm);
     } catch (err) {
@@ -182,8 +217,8 @@ export default function OrderCaptureModal() {
         >
           ×
         </button>
-        <h3 className="order-modal-title">Secure Checkout Request</h3>
-        <p className="order-modal-tier">Selected Tier: {tierName}</p>
+        <h3 className="order-modal-title">Order Request</h3>
+        <p className="order-modal-tier">Selected Plan: {tierName}</p>
 
         <form className="order-form" onSubmit={onSubmit}>
           <label>
@@ -224,8 +259,35 @@ export default function OrderCaptureModal() {
             </select>
           </label>
 
+          <label>
+            Payment Method
+            <select
+              required
+              value={form.paymentMethod}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value === "" || isSelectablePaymentMethod(value)) {
+                  setForm((p) => ({ ...p, paymentMethod: value }));
+                }
+              }}
+            >
+              <option value="" disabled>
+                Select payment method
+              </option>
+              {PAYMENT_METHOD_OPTIONS.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  disabled={!option.selectable}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+
           <button type="submit" className="btn btn-primary order-form-submit" disabled={submitting}>
-            {submitting ? "Sending..." : "Get Secure Payment Link"}
+            {submitting ? "Sending..." : "Submit Order"}
           </button>
         </form>
 

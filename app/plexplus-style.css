@@ -2265,6 +2265,11 @@ h2.section-title {
     outline: none;
 }
 
+.order-form select option:disabled {
+    color: #9ca3af;
+    font-style: italic;
+}
+
 .order-form input:focus,
 .order-form select:focus {
     border-color: var(--primary-color);
@@ -2294,4 +2299,218 @@ h2.section-title {
     background: rgba(239, 68, 68, 0.14);
     border: 1px solid rgba(239, 68, 68, 0.5);
     color: #fecaca;
+}
+
+/* Payment pages (/pay/bank, /pay/crypto) */
+.pay-section {
+    padding: 110px 0 70px;
+    min-height: 70vh;
+}
+
+.pay-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 28px 26px 32px;
+}
+
+.pay-title {
+    margin: 0 0 8px;
+    font-size: 1.75rem;
+    color: #fff;
+}
+
+.pay-subtitle {
+    margin: 0 0 22px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+}
+
+.pay-summary {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 22px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(236, 54, 85, 0.12);
+    border: 1px solid rgba(236, 54, 85, 0.35);
+}
+
+.pay-summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: baseline;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+.pay-summary-row strong {
+    color: #fff;
+    text-align: right;
+}
+
+.pay-price {
+    color: #86efac !important;
+    font-size: 1.15rem;
+}
+
+.pay-block {
+    margin: 0 0 22px;
+}
+
+.pay-block h2 {
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+    color: #fff;
+}
+
+.pay-steps {
+    margin: 0;
+    padding-left: 20px;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.65;
+}
+
+.pay-steps li {
+    margin-bottom: 8px;
+}
+
+.pay-muted {
+    margin: 0 0 12px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+}
+
+.pay-error {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(239, 68, 68, 0.14);
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    color: #fecaca;
+}
+
+.pay-field {
+    margin-bottom: 12px;
+}
+
+.pay-field-label {
+    margin-bottom: 6px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.pay-field-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.pay-field-value {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    word-break: break-all;
+    font-size: 0.92rem;
+}
+
+.pay-field-value.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.pay-copy-btn {
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.pay-copy-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(236, 54, 85, 0.2);
+}
+
+.pay-usdt-total {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #86efac;
+    margin: 0 0 8px;
+}
+
+.pay-warnings {
+    display: grid;
+    gap: 12px;
+}
+
+.pay-warning {
+    padding: 14px 16px;
+    border-radius: 12px;
+}
+
+.pay-warning strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.pay-warning p {
+    margin: 0;
+    line-height: 1.55;
+    font-size: 0.92rem;
+}
+
+.pay-warning-danger {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fecaca;
+}
+
+.pay-warning-info {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: #bfdbfe;
+}
+
+.pay-footer-note {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+    padding: 20px 0 40px;
+}
+
+.pay-footer-note a {
+    color: var(--primary-color);
+}
+
+@media (max-width: 640px) {
+    .pay-card {
+        padding: 22px 16px 26px;
+    }
+
+    .pay-summary-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .pay-summary-row strong {
+        text-align: left;
+    }
+
+    .pay-field-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

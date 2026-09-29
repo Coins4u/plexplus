@@ -577,7 +577,7 @@ export default function Home() {
               <div className="pricing-card">
                 <h3 className="plan-name">1 Month</h3>
                 <div className="plan-price">
-                  €12.67<span>/mo</span>
+                  €12.89<span>/mo</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
@@ -621,7 +621,7 @@ export default function Home() {
                 <div className="popular-badge">Best Value</div>
                 <h3 className="plan-name">3 Months</h3>
                 <div className="plan-price">
-                  €24.49<span>/3mo</span>
+                  €24.93<span>/3mo</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
@@ -664,7 +664,7 @@ export default function Home() {
               <div className="pricing-card">
                 <h3 className="plan-name">6 Months</h3>
                 <div className="plan-price">
-                  €34.78<span>/6mo</span>
+                  €36.72<span>/6mo</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
@@ -707,7 +707,7 @@ export default function Home() {
               <div className="pricing-card">
                 <h3 className="plan-name">12 Months</h3>
                 <div className="plan-price">
-                  €48.56<span>/yr</span>
+                  €49.94<span>/yr</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
@@ -753,7 +753,7 @@ export default function Home() {
               <div className="pricing-card">
                 <h3 className="plan-name">1 Month Premium</h3>
                 <div className="plan-price">
-                  €23.45<span>/mo</span>
+                  €24.12<span>/mo</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
@@ -797,7 +797,7 @@ export default function Home() {
                 <div className="popular-badge">Top Choice</div>
                 <h3 className="plan-name">3 Months Premium</h3>
                 <div className="plan-price">
-                  €34.53<span>/3mo</span>
+                  €34.63<span>/3mo</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
@@ -883,7 +883,7 @@ export default function Home() {
               <div className="pricing-card">
                 <h3 className="plan-name">12 Months Premium</h3>
                 <div className="plan-price">
-                  €65.48<span>/yr</span>
+                  €66.48<span>/yr</span>
                 </div>
                 <ul className="pricing-features">
                   <li>
