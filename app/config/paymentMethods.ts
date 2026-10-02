@@ -14,11 +14,11 @@ export type PaymentPageParams = {
 
 /** Live bank / SEPA details shown on /pay/bank */
 export const BANK_PAYMENT_DETAILS = {
-  accountHolder: "AYOUB ESADIK",
-  bankName: "Clear Junction Limited",
-  iban: "GB05CLJU04130742245935",
-  bic: "CLJUGB21XXX",
-  bankAddress: "4th Floor Imperial House, 15 Kingsway, London, WC2B 6UN, United Kingdom",
+  accountHolder: "XXX",
+  bankName: "XXX",
+  iban: "xxx-xxx-xxx-xxx-xxx",
+  bic: "XXX",
+  bankAddress: "XXX",
   referenceHint:
     "ORDER REF + your full name (Do not include words like “TV”, “IPTV”, in the payment reference or description.)",
 };
