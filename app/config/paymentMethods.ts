@@ -12,17 +12,6 @@ export type PaymentPageParams = {
   price: number;
 };
 
-/** Live bank / SEPA details shown on /pay/bank */
-export const BANK_PAYMENT_DETAILS = {
-  accountHolder: "XXX",
-  bankName: "XXX",
-  iban: "xxx-xxx-xxx-xxx-xxx",
-  bic: "XXX",
-  bankAddress: "XXX",
-  referenceHint:
-    "ORDER REF + your full name (Do not include words like “TV”, “IPTV”, in the payment reference or description.)",
-};
-
 /** Live USDT wallet shown on /pay/crypto */
 export const CRYPTO_PAYMENT_DETAILS = {
   asset: "USDT (BEP20)",

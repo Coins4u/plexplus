@@ -174,20 +174,25 @@ export default function OrderCaptureModal() {
       }
 
       const planLabel = data.tierName || tierName;
-      const methodLabel =
-        PAYMENT_METHOD_LABELS[
-          data.paymentMethod && isSelectablePaymentMethod(data.paymentMethod)
-            ? data.paymentMethod
-            : form.paymentMethod
-        ];
+      const selectedMethod =
+        data.paymentMethod && isSelectablePaymentMethod(data.paymentMethod)
+          ? data.paymentMethod
+          : form.paymentMethod;
+      const methodLabel = PAYMENT_METHOD_LABELS[selectedMethod];
       const discounted = data.discountedPrice;
       const priceSentence = discounted
         ? ` Your final price with 15% off is ${discounted}.`
         : "";
 
-      setSuccessMessage(
-        `Thank you, ${form.fullName}. We have emailed ${form.email} with your ${methodLabel} payment details for ${planLabel}.${priceSentence} Check your inbox (and spam folder) for the link to complete payment.`,
-      );
+      if (selectedMethod === "bank_transfer") {
+        setSuccessMessage(
+          `Thank you, ${form.fullName}. We emailed ${form.email} about your bank transfer order for ${planLabel}.${priceSentence} Please reply to that email to confirm and receive your secure bank payment details. Check your inbox (and spam folder).`,
+        );
+      } else {
+        setSuccessMessage(
+          `Thank you, ${form.fullName}. We have emailed ${form.email} with your ${methodLabel} payment details for ${planLabel}.${priceSentence} Check your inbox (and spam folder) for the link to complete payment.`,
+        );
+      }
       setForm(initialForm);
     } catch (err) {
       setErrorMessage(

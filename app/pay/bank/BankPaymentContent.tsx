@@ -3,12 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import PaymentPageShell from "@/app/components/PaymentPageShell";
 import {
-  CopyField,
   OrderSummary,
-  PaymentWarnings,
   parsePaymentQuery,
 } from "@/app/components/PaymentPageShared";
-import { BANK_PAYMENT_DETAILS } from "@/app/config/paymentMethods";
 
 export default function BankPaymentContent() {
   const searchParams = useSearchParams();
@@ -19,51 +16,44 @@ export default function BankPaymentContent() {
 
   return (
     <PaymentPageShell
-      title="Bank Transfer (SEPA Instant)"
-      subtitle="Pay the discounted total below by SEPA Instant transfer, then reply to your order email with proof of payment."
+      title="Bank Transfer"
+      subtitle="Bank payment details are sent privately after you confirm your order by email."
     >
       <OrderSummary plan={plan} priceLabel={priceLabel} />
 
       {!valid && (
         <p className="pay-error">
-          This payment link is missing a valid plan price. Please use the button in your order
-          confirmation email.
+          This page is missing a valid plan price. Please use the link in your order confirmation
+          email, or reply to that email for help.
         </p>
       )}
 
       <section className="pay-block">
-        <h2>How to pay with SEPA Instant</h2>
+        <h2>How to complete your bank transfer</h2>
         <ol className="pay-steps">
-          <li>Open your banking app and choose a SEPA Instant transfer (if available).</li>
+          <li>Open the order confirmation email we sent you.</li>
           <li>
-            Send exactly <strong>{priceLabel}</strong> to the account details below.
+            Reply directly to that email to confirm your order and request your secure bank payment
+            details.
           </li>
           <li>
-            In the reference / description, use <strong>ORDER REF + your full name</strong> only.
-            Do not include words like “TV” or “IPTV”.
+            We will review your reply and send the bank credentials through a private email reply.
           </li>
           <li>
-            After the transfer, reply to your order confirmation email with a receipt or
-            screenshot.
+            After you pay, reply again with a receipt or screenshot so we can activate your account.
           </li>
         </ol>
       </section>
 
-      <section className="pay-block">
-        <h2>Account details</h2>
-        <CopyField label="Beneficiary" value={BANK_PAYMENT_DETAILS.accountHolder} mono={false} />
-        <CopyField label="Bank name" value={BANK_PAYMENT_DETAILS.bankName} mono={false} />
-        <CopyField label="IBAN" value={BANK_PAYMENT_DETAILS.iban} />
-        <CopyField label="BIC / SWIFT" value={BANK_PAYMENT_DETAILS.bic} />
-        <CopyField label="Bank address" value={BANK_PAYMENT_DETAILS.bankAddress} mono={false} />
-        <CopyField
-          label="Reference / description"
-          value={BANK_PAYMENT_DETAILS.referenceHint}
-          mono={false}
-        />
-      </section>
-
-      <PaymentWarnings />
+      <div className="pay-warnings">
+        <div className="pay-warning pay-warning-info">
+          <strong>Private bank details only</strong>
+          <p>
+            For security, IBAN and account details are never shown on this website. Reply to your
+            order confirmation email to receive them securely.
+          </p>
+        </div>
+      </div>
     </PaymentPageShell>
   );
 }
